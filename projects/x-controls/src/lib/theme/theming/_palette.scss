@@ -641,37 +641,6 @@ $x-blue-grey: (
   )
 );
 
-// Background palette for login theme.
-$x-login-light-theme-background: (
-  status-bar: map_get($x-grey, 300),
-  app-bar:    map_get($x-grey, 100),
-  background: map_get($x-grey, 50),
-  hover:      rgba(black, 0.04),
-  card:       map_get($x-grey, 200),
-  contrast:   map_get($x-grey, 700),
-  control:    map_get($x-grey, 200),
-  highlight:  map_get($x-grey, 300),
-  shadow:     map_get($x-grey, 100),
-  dialog:     white,
-  disabled-button:   rgba(black, 0.12),
-  text:            rgba(black, 0.87)
-);
-
-$x-login-dark-theme-background: (
-  status-bar: black,
-  app-bar:    map_get($x-grey, 900),
-  background: rgba(39, 39, 39, 0.95),
-  hover:      rgba(white, 0.04),
-  card:       map_get($x-grey, 800),
-  contrast:   map_get($x-grey, 300),
-  control:    map_get($x-grey, 800),
-  highlight:  map_get($x-grey, 700),
-  shadow:     map_get($x-grey, 900),
-  dialog:     map_get($x-grey, 800),
-  disabled-button: rgba(white, 0.12),
-  text:            rgba(black, 0.87)
-);
-
 // Background palette for light themes.
 $x-light-theme-background: (
   status-bar:      map_get($x-grey, 300),

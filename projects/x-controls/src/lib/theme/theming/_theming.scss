@@ -1,6 +1,5 @@
 @import 'palette';
 
-
 // For a given hue in a palette, return the contrast color from the map of contrast palettes.
 // @param $color-map
 // @param $hue
@@ -55,31 +54,6 @@
   $opacity: if(opacity($color) < 1, opacity($color), $opacity);
 
   @return rgba($color, $opacity);
-}
-
-// Creates a container object for a light theme to be given to individual component theme mixins.
-@function x-login-light-theme($primary, $accent, $warn, $fonts) {
-  @return (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-    is-dark: false,
-    foreground: $x-light-theme-foreground,
-    background: $x-login-light-theme-background,
-    fonts: $fonts
-  );
-}
-
-@function x-login-dark-theme($primary, $accent, $warn, $fonts) {
-  @return (
-    primary: $primary,
-    accent: $accent,
-    warn: $warn,
-    is-dark: true,
-    foreground: $x-dark-theme-foreground,
-    background: $x-login-dark-theme-background,
-    fonts: $fonts
-  );
 }
 
 // Creates a container object for a light theme to be given to individual component theme mixins.

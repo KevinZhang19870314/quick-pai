@@ -1,4 +1,5 @@
 @import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-light.scss';
+// @import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-dark.scss';
 
 @import './app/theme/all-theme';
 @include quick-pai-theme($theme);
