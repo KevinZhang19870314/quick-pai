@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "x-controls": [
+        "dist/x-controls"
+      ],
+      "x-controls/*": [
+        "dist/x-controls/*"
+      ]
+    }
   }
 }
