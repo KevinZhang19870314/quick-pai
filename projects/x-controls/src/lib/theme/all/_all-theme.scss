@@ -1,0 +1,7 @@
+@import '../core';
+@import '../../x-controls-test-theme';
+
+@mixin x-controls-theme($theme) {
+  @include x-core-theme($theme);
+  @include x-controls-test-theme($theme);
+}

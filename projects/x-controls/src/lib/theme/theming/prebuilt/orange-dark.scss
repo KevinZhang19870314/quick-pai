@@ -1,0 +1,14 @@
+@import '../theming';
+@import '../../all/all-theme';
+
+$primary: x-palette($x-orange);
+$accent:  x-palette($x-lime, A200, A100, A400);
+$warn:    x-palette($x-red);
+
+$theme: x-dark-theme($primary, $accent, $warn, $x-large);
+
+// Include non-theme styles for core.
+@include x-core();
+
+// Include all theme-styles for the components based on the current theme.
+@include x-controls-theme($theme);

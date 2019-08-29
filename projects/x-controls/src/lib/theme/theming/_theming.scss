@@ -1,0 +1,148 @@
+@import 'palette';
+
+
+// For a given hue in a palette, return the contrast color from the map of contrast palettes.
+// @param $color-map
+// @param $hue
+@function x-contrast($palette, $hue: default) {
+  @return map-get(map-get($palette, contrast), $hue);
+}
+
+
+// Creates a map of hues to colors for a theme. This is used to define a theme palette in terms
+// of the Material Design hues.
+// @param $color-map
+// @param $primary
+// @param $lighter
+@function x-palette($base-palette, $default: 500, $lighter: 100, $darker: 700) {
+  $result: map_merge($base-palette, (
+    default: map-get($base-palette, $default),
+    lighter: map-get($base-palette, $lighter),
+    darker: map-get($base-palette, $darker),
+
+    default-contrast: x-contrast($base-palette, $default),
+    lighter-contrast: x-contrast($base-palette, $lighter),
+    darker-contrast: x-contrast($base-palette, $darker)
+  ));
+
+  // For each hue in the palette, add a "-contrast" color to the map.
+  @each $hue, $color in $base-palette {
+    $result: map_merge($result, (
+      '#{$hue}-contrast': x-contrast($base-palette, $hue)
+    ));
+  }
+
+  @return $result;
+}
+
+
+// Gets a color from a theme palette (the output of x-palette).
+// The hue can be one of the standard values (500, A400, etc.), one of the three preconfigured
+// hues (default, lighter, darker), or any of the aforementioned prefixed with "-contrast".
+//
+// @param $color-map The theme palette (output of x-palette).
+// @param $hue The hue from the palette to use. If this is a value between 0 and 1, it will
+//     be treated as opacity.
+// @param $opacity The alpha channel value for the color.
+@function x-color($palette, $hue: default, $opacity: 1) {
+  // If hueKey is a number between zero and one, then it actually contains an
+  // opacity value, so recall this function with the default hue and that given opacity.
+  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
+    @return x-color($palette, default, $hue);
+  }
+
+  $color: map-get($palette, $hue);
+  $opacity: if(opacity($color) < 1, opacity($color), $opacity);
+
+  @return rgba($color, $opacity);
+}
+
+// Creates a container object for a light theme to be given to individual component theme mixins.
+@function x-login-light-theme($primary, $accent, $warn, $fonts) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $x-light-theme-foreground,
+    background: $x-login-light-theme-background,
+    fonts: $fonts
+  );
+}
+
+@function x-login-dark-theme($primary, $accent, $warn, $fonts) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $x-dark-theme-foreground,
+    background: $x-login-dark-theme-background,
+    fonts: $fonts
+  );
+}
+
+// Creates a container object for a light theme to be given to individual component theme mixins.
+@function x-light-theme($primary, $accent, $warn, $fonts) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $x-light-theme-foreground,
+    background: $x-light-theme-background,
+    fonts: $fonts
+  );
+}
+
+
+// Creates a container object for a dark theme to be given to individual component theme mixins.
+@function x-dark-theme($primary, $accent, $warn, $fonts) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $x-dark-theme-foreground,
+    background: $x-dark-theme-background,
+    fonts: $fonts
+  );
+}
+
+$x-large: (
+    is-large: true,
+    heading-0: 24px,
+    heading-1: 18px,
+    heading-2: 16px,
+    heading-3: 13px,
+    heading-4: 11px,
+    icon-extra-large: 28px,
+    icon-large: 22px,
+    icon-normal: 16px,
+    icon-small: 13px,
+    text-super-large: 24px,
+    text-large: 14px,
+    text-normal: 12px,
+    text-small: 11px,
+    text-super-small: 10px,
+    text-ultra-small: 8px
+);
+
+$x-small: (
+    is-large: false,
+    heading-0: 20px,
+    heading-1: 16px,
+    heading-2: 14px,
+    heading-3: 11px,
+    heading-4: 9px,
+    icon-extra-large: 24px,
+    icon-large: 18px,
+    icon-normal: 14px,
+    icon-small: 11px,
+    text-super-large: 20px,
+    text-large: 12px,
+    text-normal: 10px,
+    text-small: 9px,
+    text-super-small: 8px,
+    text-ultra-small: 6px
+);

@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'x-x-controls',
-  template: `
-    <p>
-      x-controls works!
-    </p>
-  `,
-  styles: []
+  templateUrl: 'x-controls.html',
+  styleUrls: ['x-controls.scss'],
 })
 export class XControlsComponent implements OnInit {
 

@@ -1,0 +1,106 @@
+@import '../theming/theming';
+
+
+$x-ripple-focused-opacity: 0.1;
+$x-ripple-background-fade-duration: 300ms;
+$x-ripple-background-default-color: rgba(0, 0, 0, 0.0588);
+$x-ripple-foreground-initial-opacity: 0.25;
+$x-ripple-foreground-default-color: rgba(0, 0, 0, 0.0588);
+
+
+@mixin x-ripple() {
+  // The host element of an x-ripple directive should always have a position of "absolute" or
+  // "relative" so that the ripple divs it creates inside itself are correctly positioned.
+  [x-ripple] {
+    overflow: hidden;
+  }
+
+  [x-ripple].x-ripple-unbounded {
+    overflow: visible;
+  }
+
+  .x-ripple-background {
+    background-color: $x-ripple-background-default-color;
+    opacity: 0;
+    transition: opacity $x-ripple-background-fade-duration linear;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .x-ripple-unbounded .x-ripple-background {
+    display: none;
+  }
+
+  .x-ripple-background.x-ripple-active {
+    opacity: 1;
+  }
+
+  .x-ripple-focused .x-ripple-background {
+    opacity: 1;
+  }
+
+  .x-ripple-foreground {
+    background-color: $x-ripple-foreground-default-color;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: $x-ripple-foreground-initial-opacity;
+    position: absolute;
+    // The transition duration is manually set based on the ripple size.
+    transition: opacity, transform 0ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .x-ripple-foreground.x-ripple-fade-in {
+    opacity: 1;
+  }
+
+  .x-ripple-foreground.x-ripple-fade-out {
+    opacity: 0;
+  }
+}
+
+@mixin x-ripple-theme($theme) {
+  $accent: map-get($theme, accent);
+
+  .x-ripple-focused .x-ripple-background {
+    background-color: x-color($accent, $x-ripple-focused-opacity);
+  }
+}
+
+
+// A mixin, which generates temporary ink ripple on a given component.
+// To be removed once the real ripple is applied to all elements.
+// When $bindToParent is set to true, it will check for the focused class on the same selector as you included
+// that mixin.
+// It is also possible to specify the color palette of the temporary ripple. By default it uses the
+// accent palette for its background.
+@mixin x-temporary-ink-ripple($component, $bindToParent: false) {
+  // TODO(mtlin): Replace when ink ripple component is implemented.
+  // A placeholder ink ripple, shown when keyboard focused.
+  .x-ink-ripple {
+    border-radius: 50%;
+    opacity: 0;
+    height: 48px;
+    left: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity ease 280ms, background-color ease 280ms;
+    width: 48px;
+  }
+
+  // Fade in when radio focused.
+  #{if($bindToParent, '&', '')}.x-#{$component}-focused .x-ink-ripple {
+    opacity: 1;
+  }
+
+  // TODO(mtlin): This corresponds to disabled focus state, but it's unclear how to enter into
+  // this state.
+  #{if($bindToParent, '&', '')}.x-#{$component}-disabled .x-ink-ripple {
+    background-color: #000;
+  }
+}
