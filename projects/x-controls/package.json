@@ -1,6 +1,24 @@
 {
   "name": "x-controls",
   "version": "0.0.1",
+  "description": "Common angular controls library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KevinZhang19870314/quick-pai"
+  },
+  "keywords": [
+    "x",
+    "x-controls",
+    "angular",
+    "ngx",
+    "material"
+  ],
+  "author": "kevinzhang19870314",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinZhang19870314/quick-pai/issues"
+  },
+  "homepage": "https://github.com/KevinZhang19870314/quick-pai/blob/master/README.md",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"

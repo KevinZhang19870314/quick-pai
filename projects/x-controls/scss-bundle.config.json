@@ -1,0 +1,4 @@
+{
+  "entry": "./src/lib/theme/all/_all-theme.scss",
+  "dest": "../../dist/x-controls/lib/theming.scss"
+}

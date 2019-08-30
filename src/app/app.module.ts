@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { XControlsModule } from 'projects/x-controls/src/public-api';
+import { XControlsModule } from 'projects/x-controls/src';
 
 @NgModule({
   declarations: [

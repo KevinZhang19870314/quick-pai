@@ -1,5 +1,11 @@
-@import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-light.scss';
-// @import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-dark.scss';
+/****************** Import from local ******************/
+// @import '../projects/x-controls/src/lib/theme/all/all-theme';
+// @import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-light.scss';
 
+/****************** Import from npm package ******************/
+@import 'x-controls/lib/theming.scss';
+@import 'x-controls/lib/theme/theming/prebuilt/teal-light.scss';
+
+// Project related theme according to library's theming
 @import './app/theme/all-theme';
 @include quick-pai-theme($theme);
