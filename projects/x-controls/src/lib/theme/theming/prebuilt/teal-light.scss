@@ -1,7 +1,4 @@
-// @import '../theming';
-// @import '../../all/all-theme';
-
-$primary: x-palette($x-teal, A400);
+$primary: x-palette($x-teal);
 $accent: x-palette($x-deep-orange, A200, A100, A400);
 $warn: x-palette($x-red);
 

@@ -1,7 +1,4 @@
 @import '../style/variables';
-// @import '../theming/palette';
-// @import '../theming/theming';
-
 
 @mixin x-overlay() {
   $x-backdrop-color: x-color($x-grey, 900);

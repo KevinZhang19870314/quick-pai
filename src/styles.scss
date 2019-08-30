@@ -1,11 +1,32 @@
 /****************** Import from local ******************/
-// @import '../projects/x-controls/src/lib/theme/all/all-theme';
-// @import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-light.scss';
+@import '../projects/x-controls/src/lib/theme/all/all-theme';
+@import '../projects/x-controls/src/lib/theme/theming/prebuilt/teal-dark.scss';
 
 /****************** Import from npm package ******************/
-@import 'x-controls/lib/theming.scss';
-@import 'x-controls/lib/theme/theming/prebuilt/teal-light.scss';
+// @import 'x-controls/lib/theming.scss';
+// @import 'x-controls/lib/theme/theming/prebuilt/teal-light.scss';
 
-// Project related theme according to library's theming
+// Angular sample project related theme according to library's theming
 @import './app/theme/all-theme';
 @include quick-pai-theme($theme);
+
+.flex-wrap {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.col-flex {
+  flex-direction: column;
+}
+
+.row-flex {
+  flex-direction: row;
+}
+
+.middle-flex {
+  justify-content: center;
+  align-items: center;
+}

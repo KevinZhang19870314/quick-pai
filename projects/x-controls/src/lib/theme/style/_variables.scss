@@ -1,6 +1,5 @@
 @import '../typography/typography';
 
-
 // Typography
 $x-body-font-size-base: rem(1.4) !default;
 $x-font-family: Roboto,
@@ -55,3 +54,20 @@ $swift-ease-in-out: all $swift-ease-in-out-duration $swift-ease-in-out-timing-fu
 $swift-linear-duration: 80ms !default;
 $swift-linear-timing-function: linear !default;
 $swift-linear: all $swift-linear-duration $swift-linear-timing-function !default;
+
+.flex-wrap {
+  display: flex;
+}
+
+.col-flex {
+  flex-direction: column;
+}
+
+.row-flex {
+  flex-direction: row;
+}
+
+.middle-flex {
+  justify-content: center;
+  align-items: center;
+}

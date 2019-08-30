@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { XControlsModule } from 'projects/x-controls/src';
+import { XControlsModule, XButtonModule } from 'projects/x-controls/src';
+import { ButtonComponent } from './sample/button/button.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    XControlsModule
+    XControlsModule,
+    XButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
