@@ -7,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
 
+  disabledBtn: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   onPrimaryBtnClicked() {
+    this.disabledBtn = !this.disabledBtn;
     alert('Primary btn clicked');
   }
 }

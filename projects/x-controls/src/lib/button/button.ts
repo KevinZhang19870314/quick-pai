@@ -1,19 +1,22 @@
-import { Component, ViewEncapsulation, OnInit, Input, Renderer2, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, ElementRef, HostListener, SimpleChanges } from '@angular/core';
 import { Utils } from '../common/utils';
 
 @Component({
   selector: `x-button`,
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
-  encapsulation: ViewEncapsulation.None
+  host: {
+    '[class.disabled]': 'xDisabled === "true" || xDisabled === true'
+  }
 })
 
 export class XButton implements OnInit {
 
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
   @Input() xColor: 'primary' | 'accent' | 'warn' | any = 'primary';
+  @Input() xDisabled: boolean = false;
 
-  buttonWrapperEl: any;
+  buttonWrapperEl: HTMLElement;
 
   constructor(private renderer2: Renderer2,
     private el: ElementRef) { }
@@ -23,6 +26,16 @@ export class XButton implements OnInit {
 
     this.buildSize();
     this.buildBgColor();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.buttonWrapperEl) {
+      this.buttonWrapperEl = this.el.nativeElement.getElementsByClassName('x-button-wrapper')[0];
+    }
+
+    if (changes && changes.xDisabled !== undefined && this.buttonWrapperEl) {
+      this.buildBgColor();
+    }
   }
 
   private buildSize() {
@@ -38,13 +51,24 @@ export class XButton implements OnInit {
   }
 
   private buildBgColor() {
+    if (this.xDisabled) {
+      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '#E8EAED');
+      return;
+    }
+
     if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
       this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', this.xColor);
+    } else {
+      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '');
     }
   }
 
   // For those colors which isn't in primary/accent/warn mouseover implementation 
   @HostListener('mouseover') onmouseover() {
+    if (this.xDisabled) {
+      return;
+    }
+
     if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
       let rgb = Utils.hexToRgb(this.xColor);
       this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 80%)');
@@ -53,6 +77,10 @@ export class XButton implements OnInit {
 
   // For those colors which isn't in primary/accent/warn mouseout implementation 
   @HostListener('mouseout') onmouseout() {
+    if (this.xDisabled) {
+      return;
+    }
+
     if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
       this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', this.xColor);
     }
