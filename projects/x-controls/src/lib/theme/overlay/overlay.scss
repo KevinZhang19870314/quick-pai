@@ -1,4 +1,4 @@
-@import '../style/variables';
+// @import '../style/variables';
 
 @mixin x-overlay() {
   $x-backdrop-color: x-color($x-grey, 900);

@@ -14,7 +14,7 @@ export class XButton implements OnInit {
 
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
   @Input() xColor: 'primary' | 'accent' | 'warn' | any = 'primary';
-  @Input() xDisabled: boolean = false;
+  @Input() xDisabled: any = false;
 
   buttonWrapperEl: HTMLElement;
 
