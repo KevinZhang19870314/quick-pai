@@ -1,14 +1,12 @@
 @import '../core';
 @import '../theming/theming';
 
-@import '../../x-controls-test-theme';
 @import '../../button/button-theme';
 @import '../../checkbox/checkbox-theme';
 
 @mixin x-controls-theme($theme) {
   @include x-core-theme($theme);
 
-  @include x-controls-test-theme($theme);
   @include x-button-theme($theme);
   @include x-checkbox-theme($theme);
 }

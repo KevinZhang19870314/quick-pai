@@ -3,11 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { XControlsModule, XButtonModule } from 'projects/x-controls/src';
 import { ButtonComponent } from './sample/button/button.component';
-import { XCheckboxModule } from 'projects/x-controls/src/lib/checkbox';
 import { CheckboxComponent } from './sample/checkbox/checkbox.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { XButtonModule, XCheckboxModule } from 'projects/x-controls/src';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    XControlsModule,
     XButtonModule,
     XCheckboxModule
   ],
