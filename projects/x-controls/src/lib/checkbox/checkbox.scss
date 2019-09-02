@@ -1,0 +1,41 @@
+.x-checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+
+  &>input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+
+    &:checked~.checkmark {
+      &:after {
+        display: block;
+      }
+    }
+  }
+
+  &>.checkmark {
+    position: relative;
+    height: 19px;
+    width: 19px;
+    display: block;
+    box-sizing: border-box;
+    margin-right: 5px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      margin-left: 6px;
+      margin-top: 2px;
+      width: 5px;
+      height: 10px;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<label>NgModel 绑定</label>
+<div class="app-checkbox-wrapper flex-wrap row-flex wrap">
+  <x-checkbox xChecked="true">多选框 - [xChecked]绑定</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked1">多选框 - 默认不勾选</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked2">多选框 - 默认勾选</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked3" (onCheckChanged)="onCheckChanged($event)">多选框 - 勾选事件触发</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked4">多选框 - 动态勾选</x-checkbox>
+  <x-checkbox xColor='accent' [(ngModel)]="isChecked5">多选框 - accent</x-checkbox>
+  <x-checkbox xColor='warn' [(ngModel)]="isChecked6">多选框 - warn</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked6" [xDisabled]="isDisabled">多选框 - 禁用</x-checkbox>
+  <x-checkbox [(ngModel)]="isChecked7" (onCheckChanged)="isDisabled = !isDisabled">多选框 - 取消禁用</x-checkbox>
+</div>
+<br />
+<br />
+<label>Reactive forms 绑定</label>
+<div class="app-checkbox-wrapper flex-wrap col-flex wrap" [formGroup]="testForm">
+  <x-checkbox formControlName="isChecked7">多选框 - binding 1</x-checkbox>
+  <x-checkbox formControlName="isChecked8">多选框 - binding 2</x-checkbox>
+  <x-checkbox formControlName="isChecked9" xDisabled="true">多选框 - binding 3 禁用</x-checkbox>
+  <div class="flex-wrap row-flex">
+    <x-button xSize="large" (click)="onCheckValues()">Check values</x-button>&nbsp;&nbsp;
+    <x-button xColor="accent" xSize="large" (click)="onToggleBindingsValue()">Toggle bindings</x-button>
+  </div>
+</div>

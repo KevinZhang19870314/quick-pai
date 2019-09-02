@@ -1,0 +1,10 @@
+<label class="x-checkbox-wrapper flex-wrap row-flex" [ngClass]="{'disabled': xDisabled}">
+  <input type="checkbox" [(ngModel)]="xChecked" (change)="onChanged()" [disabled]="xDisabled">
+  <span class="checkmark" [ngClass]="{'x-controls-color': xColor === 'primary', 
+    'x-controls-color-accent': xColor === 'accent', 
+    'x-controls-color-warn': xColor === 'warn',
+    'unchecked': !xChecked,
+    'disabled': xDisabled
+  }"></span>
+  <ng-content></ng-content>
+</label>

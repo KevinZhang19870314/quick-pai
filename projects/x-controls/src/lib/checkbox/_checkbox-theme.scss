@@ -1,0 +1,41 @@
+@mixin x-checkbox-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  .x-checkbox-wrapper {
+    color: x-color($foreground, text, 0.95);
+
+    @include x-controls-color($primary, '');
+    @include x-controls-color($accent, 'accent');
+    @include x-controls-color($warn, 'warn');
+
+    &>.checkmark.unchecked {
+      background-color: transparent;
+      border: 2px solid x-color($foreground, text, .1);
+    }
+
+    &>.checkmark.unchecked.disabled {
+      background-color: transparent;
+      border: 2px solid #B0B0B0;
+    }
+
+    &>.checkmark.disabled {
+      background-color: #B0B0B0;
+    }
+
+    &>.checkmark:after {
+      border: solid white;
+    }
+  }
+
+  .x-checkbox-wrapper.disabled {
+    color: #B0B0B0;
+  }
+}

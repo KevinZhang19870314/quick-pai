@@ -1,14 +1,3 @@
-@mixin x-button-color($color, $suffix) {
-
-  .x-button-color#{if($suffix == '', '', '-' + $suffix)} {
-    background-color: x-color($color);
-
-    &:hover {
-      background-color: lighten(x-color($color), 5%);
-    }
-  }
-}
-
 @mixin x-button-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -20,9 +9,9 @@
   $layout-background-color: x-color($background, background);
   $layout-foreground-color: x-color($foreground, text, 0.95);
 
-  @include x-button-color($primary, '');
-  @include x-button-color($accent, 'accent');
-  @include x-button-color($warn, 'warn');
+  @include x-controls-color($primary, '');
+  @include x-controls-color($accent, 'accent');
+  @include x-controls-color($warn, 'warn');
 
   .x-button-wrapper {
     color: x-color($foreground, text, 0.95);

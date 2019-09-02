@@ -71,3 +71,14 @@ $swift-linear: all $swift-linear-duration $swift-linear-timing-function !default
   justify-content: center;
   align-items: center;
 }
+
+@mixin x-controls-color($color, $suffix) {
+
+  .x-controls-color#{if($suffix == '', '', '-' + $suffix)} {
+    background-color: x-color($color);
+
+    &:hover {
+      background-color: lighten(x-color($color), 5%);
+    }
+  }
+}

@@ -52,7 +52,7 @@ export class XButton implements OnInit {
 
   private buildBgColor() {
     if (this.xDisabled) {
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '#E8EAED');
+      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '#B0B0B0');
       return;
     }
 
@@ -63,7 +63,7 @@ export class XButton implements OnInit {
     }
   }
 
-  // For those colors which isn't in primary/accent/warn mouseover implementation 
+  // mouseover implementation for those colors which isn't in primary/accent/warn 
   @HostListener('mouseover') onmouseover() {
     if (this.xDisabled) {
       return;
@@ -75,7 +75,7 @@ export class XButton implements OnInit {
     }
   }
 
-  // For those colors which isn't in primary/accent/warn mouseout implementation 
+  // mouseout implementation for those colors which isn't in primary/accent/warn
   @HostListener('mouseout') onmouseout() {
     if (this.xDisabled) {
       return;
