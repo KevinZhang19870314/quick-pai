@@ -19,6 +19,7 @@ export class XCheckbox implements OnInit, ControlValueAccessor {
   @Input() xColor: 'primary' | 'accent' | 'warn' = 'primary';
   @Input() xChecked: boolean = false;
   @Input() xDisabled: boolean = false;
+  @Input() xLabelPosition: 'after' | 'before' = 'after';
 
   @Output() onCheckChanged = new EventEmitter<boolean>();
 

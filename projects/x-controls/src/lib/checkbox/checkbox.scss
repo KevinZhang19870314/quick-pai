@@ -25,6 +25,7 @@
     display: block;
     box-sizing: border-box;
     margin-right: 5px;
+    order: 2;
 
     &:after {
       content: "";
@@ -37,5 +38,14 @@
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
+  }
+
+  &>.label-content.after {
+    order: 2;
+  }
+
+  &>.label-content.before {
+    order: 1;
+    margin-right: 5px;
   }
 }

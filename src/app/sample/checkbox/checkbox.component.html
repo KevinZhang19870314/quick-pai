@@ -1,6 +1,7 @@
 <label>NgModel 绑定</label>
 <div class="app-checkbox-wrapper flex-wrap row-flex wrap">
   <x-checkbox xChecked="true">多选框 - [xChecked]绑定</x-checkbox>
+  <x-checkbox xChecked="true" xColor='warn' xLabelPosition="before">多选框 - Label在前面</x-checkbox>
   <x-checkbox [(ngModel)]="isChecked1">多选框 - 默认不勾选</x-checkbox>
   <x-checkbox [(ngModel)]="isChecked2">多选框 - 默认勾选</x-checkbox>
   <x-checkbox [(ngModel)]="isChecked3" (onCheckChanged)="onCheckChanged($event)">多选框 - 勾选事件触发</x-checkbox>

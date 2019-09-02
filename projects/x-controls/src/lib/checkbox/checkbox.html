@@ -6,5 +6,7 @@
     'unchecked': !xChecked,
     'disabled': xDisabled
   }"></span>
-  <ng-content></ng-content>
+  <span class="label-content after" [ngClass]="{'before': xLabelPosition === 'before'}">
+    <ng-content></ng-content>
+  </span>
 </label>
