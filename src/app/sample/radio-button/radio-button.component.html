@@ -1,0 +1,70 @@
+<label>NgModel 绑定</label>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group [(ngModel)]="chooseTShirt" (onValueChanged)="onValueChanged($event)">
+    <x-radio-button [xValue]="'shoes'">鞋子</x-radio-button>
+    <x-radio-button [xValue]="'t-shirt'">衬衫</x-radio-button>
+    <x-radio-button [xValue]="'pants'">裤子</x-radio-button>
+  </x-radio-button-group>
+  <x-button (click)="onChooseShoes1()">选鞋子</x-button>
+</div>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group [(ngModel)]="choosePants" xDisabled="true" (onValueChanged)="onValueChanged($event)">
+    <x-radio-button [xValue]="'shoes'">鞋子</x-radio-button>
+    <x-radio-button [xValue]="'t-shirt'">衬衫</x-radio-button>
+    <x-radio-button [xValue]="'pants'">裤子</x-radio-button>
+  </x-radio-button-group>
+  <x-button xSize="large" (click)="onChooseShoes2()">选鞋子（禁用状态）</x-button>
+</div>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group [(ngModel)]="chooseShoes" (onValueChanged)="onValueChanged($event)">
+    <x-radio-button [xValue]="'shoes'">鞋子</x-radio-button>
+    <x-radio-button [xValue]="'t-shirt'" xDisabled="true">衬衫</x-radio-button>
+    <x-radio-button [xValue]="'pants'">裤子</x-radio-button>
+  </x-radio-button-group>
+</div>
+
+<br />
+<label>xLablePosition 在前面</label>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group xValue="middle" xLabelPosition="before">
+    <x-radio-button [xValue]="'large'">张学友</x-radio-button>
+    <x-radio-button [xValue]="'middle'">周杰伦</x-radio-button>
+    <x-radio-button [xValue]="'small'">陈奕迅</x-radio-button>
+  </x-radio-button-group>
+</div>
+
+<br />
+<label>Reactive forms 绑定</label>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap" [formGroup]="testForm">
+  <x-radio-button-group formControlName="selectedPhone">
+    <x-radio-button [xValue]="'iPhone 10'">iPhone 10</x-radio-button>
+    <x-radio-button [xValue]="'HuaWei P10'">HuaWei P10</x-radio-button>
+    <x-radio-button [xValue]="'Nokia N97'">Nokia N97</x-radio-button>
+  </x-radio-button-group>
+  <x-button xSize="large" (click)="onChooseHuaWeiP10()">选HuaWei P10</x-button>
+</div>
+
+<br />
+<label>xValue 绑定（Theme： accent、warn）</label>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group xValue="圆珠笔" xColor="accent">
+    <x-radio-button [xValue]="'毛笔'">毛笔</x-radio-button>
+    <x-radio-button [xValue]="'圆珠笔'">圆珠笔</x-radio-button>
+    <x-radio-button [xValue]="'铅笔'">铅笔</x-radio-button>
+  </x-radio-button-group>
+</div>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group xValue="电脑" xColor="warn">
+    <x-radio-button [xValue]="'电脑'">电脑</x-radio-button>
+    <x-radio-button [xValue]="'iPad'">iPad</x-radio-button>
+    <x-radio-button [xValue]="'MP3'">MP3</x-radio-button>
+  </x-radio-button-group>
+</div>
+
+<br />
+<label>Object 绑定</label>
+<div class="app-radio-button-wrapper flex-wrap row-flex wrap">
+  <x-radio-button-group xValue="3">
+    <x-radio-button [xValue]="season.id" *ngFor="let season of seasons">{{ season.name }}</x-radio-button>
+  </x-radio-button-group>
+</div>

@@ -1,0 +1,58 @@
+.x-radio-button-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.x-radio-button-wrapper {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  margin: 5px;
+
+  &>input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+
+    &:checked~.checkMark {
+      &:after {
+        display: block;
+      }
+    }
+  }
+
+  &>.checkMark {
+    position: relative;
+    height: 22px;
+    width: 22px;
+    display: block;
+    box-sizing: border-box;
+    margin-right: 5px;
+    order: 2;
+    border-radius: 50%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      margin-left: 3px;
+      margin-top: 3px;
+      width: 8px;
+      height: 8px;
+      border-width: 2px;
+      border-radius: 50%;
+    }
+  }
+
+  &>.label-content.after {
+    order: 2;
+  }
+
+  &>.label-content.before {
+    order: 1;
+    margin-right: 5px;
+  }
+}

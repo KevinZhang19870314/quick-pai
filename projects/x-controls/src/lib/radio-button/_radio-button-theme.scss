@@ -1,0 +1,59 @@
+@mixin x-radio-button-check-color($color, $suffix) {
+
+  .x-radio-button-check-color#{if($suffix == '', '', '-' + $suffix)} {
+    border: 2px solid x-color($color);
+
+    &:after {
+      border: solid x-color($color);
+      background-color: x-color($color);
+    }
+  }
+}
+
+@mixin x-radio-button-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  .x-radio-button-wrapper {
+    color: x-color($foreground, text, 0.95);
+
+    &>.checkMark.unselected {
+      background-color: transparent;
+      border: 2px solid x-color($foreground, text, .1);
+    }
+
+    &>.checkMark.unselected.disabled {
+      background-color: transparent;
+      border: 2px solid #B0B0B0;
+    }
+
+    &>.checkMark.disabled {
+      border: 2px solid #B0B0B0;
+      background-color: transparent;
+
+      &:after {
+        border: 2px solid #B0B0B0;
+        background-color: #B0B0B0;
+      }
+    }
+
+    &>.label-content.disabled {
+      color: #B0B0B0;
+    }
+
+    @include x-radio-button-check-color($primary, '');
+    @include x-radio-button-check-color($accent, 'accent');
+    @include x-radio-button-check-color($warn, 'warn');
+  }
+
+  .x-checkbox-wrapper.disabled {
+    color: #B0B0B0;
+  }
+}
