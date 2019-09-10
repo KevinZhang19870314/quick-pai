@@ -1,0 +1,42 @@
+@mixin x-input-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  .x-input-wrapper {
+    color: x-color($foreground, text, 0.95);
+
+    .x-input-field {
+      border-bottom: 1px solid x-color($foreground, control);
+      background-color: x-color($background, background);
+
+      &.disabled {
+        color: x-color($foreground, disabled-text);
+      }
+
+      &:not(.disabled):active,
+      &:not(.disabled):focus {
+        border-bottom: 1px solid x-color($primary);
+        box-shadow: 0 1px 0 0 x-color($primary);
+      }
+
+      &:focus+label {
+        color: x-color($primary);
+      }
+    }
+
+    .x-input-lbl {
+      color: x-color($foreground, control);
+    }
+
+    .x-input-msg {
+      color: x-color($warn);
+    }
+  }
+}

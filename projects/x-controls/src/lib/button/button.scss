@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 :host(.disabled) {
   pointer-events: none;
 }

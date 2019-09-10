@@ -1,0 +1,7 @@
+<div class="x-input-wrapper">
+  <input class="x-input-field" [ngClass]="{'active': xValue, 'disabled': xDisabled}" [id]="uid"
+    [attr.disabled]="xDisabled ? '' : null" [(ngModel)]="xValue" (change)="onChanged()"
+    (keyup)="onChanged()" />
+  <label class="x-input-lbl" [for]="uid">{{ xLblText }}</label>
+  <span class="x-input-msg" attr.data-input-msg="{{ xMsg }}"></span>
+</div>

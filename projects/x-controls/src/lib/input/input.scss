@@ -1,0 +1,47 @@
+.x-input-wrapper {
+  position: relative;
+  margin-top: 20px;
+
+  .x-input-field {
+    padding: 5px 0px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    transition: box-shadow .3s, border .3s;
+    font-size: 16px;
+
+    &:focus+label {
+      transform: translateY(-20px) scale(.8);
+      transform-origin: 0% 0%;
+      opacity: .6;
+    }
+
+    &.active+label {
+      transform: translateY(-20px) scale(.8);
+      transform-origin: 0% 0%;
+      opacity: .6;
+    }
+  }
+
+  .x-input-lbl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: text;
+    opacity: .4;
+    transition: transform .2s ease-out, color .2s ease-out;
+    transform-origin: 0% 100%;
+    text-align: initial;
+  }
+
+  .x-input-msg {
+    display: block;
+    font-size: 12px;
+    margin-top: 3px;
+
+    &:after {
+      content: attr(data-input-msg);
+    }
+  }
+}

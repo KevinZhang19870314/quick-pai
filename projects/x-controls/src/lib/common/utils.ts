@@ -40,4 +40,8 @@ export class Utils {
         // are considered equivalent
         return true;
     }
+
+    static toBoolean(value: any): boolean {
+        return value != null && `${value}` !== 'false';
+    }
 }
