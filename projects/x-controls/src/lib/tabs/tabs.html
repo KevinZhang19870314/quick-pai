@@ -1,0 +1,22 @@
+<div class="x-tabs-wrapper">
+  <!-- tab header -->
+  <div class="x-tabs-header flex-wrap row-flex">
+    <span *ngFor="let tab of tabsArray; let i = index" [ngClass]="{
+      'active-tab': (xSelectedIndex === i && xColor === 'primary'), 
+      'active-tab-accent': (xSelectedIndex === i && xColor === 'accent'), 
+      'active-tab-warn': (xSelectedIndex === i && xColor === 'warn'),
+      'disabled': tab.xDisabled
+    }" (click)="onTabHeaderClicked(tab, i)">
+
+      <ng-container *ngIf="tab.xTitle">
+        {{ tab.xTitle }}
+      </ng-container>
+      <ng-container *ngIf="!tab.xTitle && tab.tabHeaderContent && tab.tabHeaderContent.template">
+        <ng-container *ngTemplateOutlet="tab.tabHeaderContent.template;"></ng-container>
+      </ng-container>
+    </span>
+  </div>
+
+  <!-- tab body -->
+  <ng-container *ngTemplateOutlet="activeTab && activeTab.content"></ng-container>
+</div>

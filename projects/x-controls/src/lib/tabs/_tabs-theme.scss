@@ -1,0 +1,40 @@
+@mixin x-tabs-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  .x-tabs-wrapper {
+    color: x-color($foreground, text, 0.95);
+
+    @include x-controls-color($primary, '');
+    @include x-controls-color($accent, 'accent');
+    @include x-controls-color($warn, 'warn');
+
+    .x-tabs-header {
+      border-bottom: 1px solid #DCDCDC;
+
+      &>span.active-tab {
+        border-bottom: 2px solid x-color($primary);
+      }
+
+      &>span.active-tab-accent {
+        border-bottom: 2px solid x-color($accent);
+      }
+
+      &>span.active-tab-warn {
+        border-bottom: 2px solid x-color($warn);
+      }
+
+      &>span.disabled {
+        border-bottom: none;
+        color: #B0B0B0;
+      }
+    }
+  }
+}

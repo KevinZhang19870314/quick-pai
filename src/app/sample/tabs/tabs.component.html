@@ -1,0 +1,51 @@
+<div class="app-tabs-wrapper flex-wrap col-flex">
+  <label>1. 支持选择tab index、动态隐藏tab、动态选择tab、禁用tab等</label>
+  <x-tabs [(xSelectedIndex)]="selectedIndex">
+    <x-tab xTitle="全部活动">
+      全部活动
+    </x-tab>
+    <x-tab xTitle="进行中" [xVisible]="false">
+      进行中
+    </x-tab>
+    <x-tab xTitle="已作废">
+      <div style="margin: 30px;">
+        <span>已作废</span>
+        <x-button (click)="gotoAllActivity()">进入全部活动</x-button>
+      </div>
+    </x-tab>
+    <x-tab xTitle="已结束" [xDisabled]="true">
+      <x-button>结束</x-button>
+    </x-tab>
+  </x-tabs>
+  <br>
+  <div style="width: 100%; height: 1px; background: gray;"></div>
+  <br>
+  <label>2. 自定义tab头部</label>
+  <x-tabs>
+    <x-tab>
+      <x-tab-header>
+        <ng-template>
+          香蕉<i class="fas fa-bug"></i>
+        </ng-template>
+      </x-tab-header>
+      <div style="margin: 30px;">
+        <x-input xLblText="水果" [(ngModel)]="banana"></x-input>
+      </div>
+    </x-tab>
+    <x-tab>
+      <x-tab-header>
+        <ng-template>
+          苹果<i class="fas fa-user-secret"></i>
+        </ng-template>
+      </x-tab-header>
+      <div style="margin: 30px;">
+        <x-checkbox xChecked="true">水果苹果</x-checkbox>
+      </div>
+    </x-tab>
+    <x-tab xTitle="橘子">
+      <div style="margin: 30px;">
+        <x-button>水果橘子</x-button>
+      </div>
+    </x-tab>
+  </x-tabs>
+</div>
