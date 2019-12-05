@@ -1,6 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, SimpleChanges, Input, Output, EventEmitter, forwardRef, ContentChildren, QueryList } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { XTab } from './tab';
+import { NotifyService, TAB_xVisible } from '../common/notify.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: `x-tabs`,
@@ -24,17 +26,24 @@ export class XTabs implements OnInit {
   tabsArray: XTab[] = [];
   activeTab: XTab;
 
-  constructor() { }
+  private unsubscribe_xVisible: Subscription = null;
+
+  constructor(private notifyService: NotifyService) { }
 
   ngOnInit(): void {
+    this.unsubscribe_xVisible = this.notifyService.get(TAB_xVisible).subscribe(res => {
+      if (res && res.tab) {
+        let tab = this.allTabs.find(f => f === res.tab);
+        if (tab) {
+          tab.xVisible = res.tab.xVisible;
+          this.refreshTabs();
+        }
+      }
+    });
   }
 
   ngAfterContentInit() {
-    this.xSelectedIndex = +this.xSelectedIndex;
-    this.tabsArray = this.allTabs.toArray().filter(f => f.xVisible);
-    if (this.tabsArray && this.tabsArray.length > 0) {
-      this.activeTab = this.tabsArray[this.xSelectedIndex] ? this.tabsArray[this.xSelectedIndex] : this.tabsArray[0];
-    }
+    this.refreshTabs();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -59,15 +68,19 @@ export class XTabs implements OnInit {
     this.xSelectedIndexChange.emit(this.xSelectedIndex);
   }
 
-  // writeValue(obj: any): void {
-  //   throw new Error("Method not implemented.");
-  // }
+  ngOnDestroy(): void {
+    if (this.unsubscribe_xVisible) {
+      this.unsubscribe_xVisible.unsubscribe();
+    }
+  }
 
-  // registerOnChange(fn: any): void {
-  //   this.emitChange = fn;
-  // }
-
-  // registerOnTouched(fn: any): void { }
+  private refreshTabs() {
+    this.xSelectedIndex = +this.xSelectedIndex;
+    this.tabsArray = this.allTabs.toArray().filter(f => f.xVisible);
+    if (this.tabsArray && this.tabsArray.length > 0) {
+      this.activeTab = this.tabsArray[this.xSelectedIndex] ? this.tabsArray[this.xSelectedIndex] : this.tabsArray[0];
+    }
+  }
 }
 
 

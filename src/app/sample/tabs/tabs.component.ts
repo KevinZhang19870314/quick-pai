@@ -9,9 +9,13 @@ export class TabsComponent implements OnInit {
 
   selectedIndex = 1;
   banana = '香蕉';
+  isVisible = false;
   constructor() { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 2000);
   }
 
   gotoAllActivity() {

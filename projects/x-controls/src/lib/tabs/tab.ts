@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
 import { XTabHeaderDirective } from './tab-header.directive';
+import { NotifyService, TAB_xVisible } from '../common/notify.service';
 
 @Component({
   selector: `x-tab`,
@@ -18,7 +19,7 @@ export class XTab implements OnInit {
 
   isActive: boolean = false;
 
-  constructor() { }
+  constructor(private notifyService: NotifyService) { }
 
   ngOnInit(): void {
   }
@@ -26,8 +27,10 @@ export class XTab implements OnInit {
   ngAfterContentInit() {
   }
 
-  ngOnChanges() {
-
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.xVisible && !changes.xVisible.firstChange) {
+      this.notifyService.notify(TAB_xVisible, { tab: this, xVisible: changes.xVisible.currentValue });
+    }
   }
 }
 
