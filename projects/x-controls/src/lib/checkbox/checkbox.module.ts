@@ -3,6 +3,9 @@ import { XCheckbox } from './checkbox';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * @ignore
+ */
 @NgModule({
     imports: [
         CommonModule,

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { XRadioButton, XRadioButtonGroup } from './radio-button';
 
+/**
+ * @ignore
+ */
 @NgModule({
     imports: [
         CommonModule,

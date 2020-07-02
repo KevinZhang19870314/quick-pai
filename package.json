@@ -12,7 +12,8 @@
     "pack": "cd ./dist/x-controls/ && npm pack",
     "install-pkg": "npm install ./dist/x-controls/x-controls-0.0.1.tgz",
     "release-local": "npm run deploy && npm run pack && npm run install-pkg",
-    "publish": "cd ./dist/x-controls/ && npm publish"
+    "publish": "cd ./dist/x-controls/ && npm publish",
+    "compodoc-lib": "npx compodoc -p projects/x-controls/tsconfig.lib.json"
   },
   "private": true,
   "dependencies": {

@@ -5,6 +5,9 @@ import { XTabs } from './tabs';
 import { XTab } from './tab';
 import { XTabHeaderDirective } from './tab-header.directive';
 
+/**
+ * @ignore
+ */
 @NgModule({
     imports: [
         CommonModule,

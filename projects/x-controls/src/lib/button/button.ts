@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Renderer2, ElementRef, HostListener, SimpleChanges } from '@angular/core';
 import { Utils } from '../common/utils';
-
+/**
+ * Example of usage:
+ * <example-url>https://stackblitz.com/edit/x-button?embed=1&file=src/app/app.component.ts</example-url>
+ * <example-url>https://www.baidu.com</example-url>
+ */
 @Component({
   selector: `x-button`,
   templateUrl: 'button.html',
@@ -12,7 +16,13 @@ import { Utils } from '../common/utils';
 
 export class XButton implements OnInit {
 
+  /**
+   * The size for button
+   */
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
+  /**
+   * The color for button, you can pass default three, or custom solor like 'red, #FFFFFF and etc.'
+   */
   @Input() xColor: 'primary' | 'accent' | 'warn' | any = 'primary';
   @Input() xDisabled: any = false;
 
