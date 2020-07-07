@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './sample/button/button.component';
 import { CheckboxComponent } from './sample/checkbox/checkbox.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { XButtonModule, XCheckboxModule, XRadioButtonModule, XInputModule, XTabsModule } from 'projects/x-controls/src';
+import { XButtonModule, XCheckboxModule, XRadioButtonModule, XInputModule, XTabsModule, XTooltipModule } from 'projects/x-controls/src';
 import { RadioButtonComponent } from './sample/radio-button/radio-button.component';
 import { InputComponent } from './sample/input/input.component';
 import { TabsComponent } from './sample/tabs/tabs.component';
+import { TooltipComponent } from './sample/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TabsComponent } from './sample/tabs/tabs.component';
     CheckboxComponent,
     RadioButtonComponent,
     InputComponent,
-    TabsComponent
+    TabsComponent,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { TabsComponent } from './sample/tabs/tabs.component';
     XCheckboxModule,
     XRadioButtonModule,
     XInputModule,
-    XTabsModule
+    XTabsModule,
+    XTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

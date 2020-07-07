@@ -1,0 +1,35 @@
+<div class="app-tooltip-wrapper flex-wrap col-flex wrap">
+  <div class="flex-wrap row-flex">
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="top">Hover top</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!">Hover right</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="bottom">Hover bottom</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="left">Hover left</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="topLeft">Hover topLeft</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="topRight">Hover topRight</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="bottomLeft">Hover bottomLeft</span>
+    <span class="hover-origin" xTooltip="Hello, tooltip!" xPosition="bottomRight">Hover bottomRight</span>
+  </div>
+
+  <div class="flex-wrap row-flex">
+    <span class="hover-origin" xTooltip="<span style='color: yellow;'>自定义html文本</span>">Hover 自定义text html</span>
+    <span class="hover-origin" xTooltip [xTemplate]="tooltipTemplate">Hover 自定义template</span>
+  </div>
+
+  <div class="flex-wrap row-flex">
+    <span class="hover-origin" xTooltip="I'm a tooltip, hover!" xPosition="top" xOffsetX="85" xOffsetY="-15"
+      xBgColor="rgba(73, 89, 106, .3" [xShowArrow]="false">自定义属性</span>
+  </div>
+</div>
+
+<ng-template #tooltipTemplate>
+  <div class="flex-wrap col-flex" style="padding: 10px; font-size: 13px;">
+    <div style="margin-bottom: 10px;">
+      <i class="fas fa-circle" style="color:#2CC5C6;"></i>&nbsp;
+      <span style="font-weight: normal;">今日涨幅：120%</span>
+    </div>
+    <div>
+      <i class="fas fa-circle" style="color: #4F8DDD;"></i>&nbsp;
+      <span style="font-weight: normal;">往日涨幅：250%</span>
+    </div>
+  </div>
+</ng-template>

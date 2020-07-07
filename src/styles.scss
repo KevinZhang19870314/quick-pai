@@ -6,6 +6,8 @@
 // @import 'x-controls/lib/theming.scss';
 // @import 'x-controls/lib/theme/theming/prebuilt/teal-light.scss';
 
+@import '~@angular/cdk/overlay-prebuilt.css';
+
 // Angular sample project related theme according to library's theming
 @import './app/theme/all-theme';
 @include quick-pai-theme($theme);

@@ -6,6 +6,7 @@
 @import '../../radio-button/radio-button-theme';
 @import '../../input/input-theme';
 @import '../../tabs/tabs-theme';
+@import '../../tooltip/tooltip-theme';
 
 @mixin x-controls-theme($theme) {
   @include x-core-theme($theme);
@@ -15,4 +16,5 @@
   @include x-radio-button-theme($theme);
   @include x-input-theme($theme);
   @include x-tabs-theme($theme);
+  @include x-tooltip-theme($theme);
 }

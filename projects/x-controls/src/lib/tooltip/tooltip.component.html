@@ -1,0 +1,10 @@
+<ng-container *ngIf="xText">
+  <div @tooltip [ngStyle]="{'background-color': xBgColor}" [innerHtml]="xText | safeHtml">
+  </div>
+</ng-container>
+
+<ng-container *ngIf="xTemplate">
+  <div @tooltip [ngStyle]="{'background-color': xBgColor}">
+    <ng-container *ngTemplateOutlet="xTemplate"></ng-container>
+  </div>
+</ng-container>

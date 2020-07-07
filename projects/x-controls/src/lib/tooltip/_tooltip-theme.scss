@@ -1,0 +1,19 @@
+@mixin x-tooltip-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  @include x-controls-color($primary, '');
+  @include x-controls-color($accent, 'accent');
+  @include x-controls-color($warn, 'warn');
+
+  .x-tooltip-wrapper {
+    color: x-color($foreground, text, 0.95);
+  }
+}
