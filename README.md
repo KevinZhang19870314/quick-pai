@@ -9,8 +9,8 @@ npm i x-controls
 
 #### 2. Import style themes to style.scss file
 ```scss
-@import '../node_modules/cil-ngx-controls/lib/theming';
-@import '../node_modules/cil-ngx-controls/theme/theming/prebuilt/teal-dark.scss';
+@import 'x-controls/lib/theming.scss';
+@import 'x-controls/lib/theme/theming/prebuilt/teal-light.scss';
 ```
 
 #### 3. Import CilButtonModule (as an example) to AppModule file
@@ -18,13 +18,13 @@ npm i x-controls
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { CilButtonModule } from 'cil-ngx-controls';
+import { XButtonModule } from 'x-controls';
 import { AppComponent } from './app.component';
 @NgModule({
   imports: [
       BrowserModule, 
       FormsModule,
-      CilButtonModule
+      XButtonModule
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
@@ -34,9 +34,11 @@ export class AppModule { }
 
 #### 4. Add below html to App.component.html file
 ```html
-<cil-button>确定</cil-button>
+<x-button>primary</x-button>
 <br />
-<cil-button buttonType="secondary">点击上传</cil-button>
+<x-button xColor="accent">accent</x-button>
+<br />
+<x-button xColor="warn">warn</x-button>
 ```
 
 #### 5. All done!
