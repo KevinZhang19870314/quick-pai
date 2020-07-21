@@ -1,4 +1,4 @@
-# x-controls
+# x-controls - Angular 6+ common components, controls.
 
 ## Get started
 
