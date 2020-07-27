@@ -1,6 +1,6 @@
 import { ComponentRef, Directive, ElementRef, HostListener, Input, OnInit, TemplateRef, Component, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { trigger, transition, style, animate } from "@angular/animations";
 
 const OFFSET = 4;
@@ -201,7 +201,7 @@ export class XTooltipDirective implements OnInit {
 
   @HostListener('mouseout')
   hide() {
-    if (this.overlayRef.hasAttached) {
+    if (this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     }
   }

@@ -1,0 +1,20 @@
+<div class="x-select-wrapper">
+  <div class="selected-item-wrapper" (click)="onOpenDropdown($event, dropdown, origin)" #origin>
+    <span [ngClass]="{'placeholder': !isItemSelected}">{{ label }}</span>
+
+    <i class="fas fa-caret-down" *ngIf="!isDropdownOpen"></i>
+    <i class="fas fa-caret-up" *ngIf="isDropdownOpen"></i>
+  </div>
+
+  <ng-template #dropdown>
+    <cdk-virtual-scroll-viewport itemSize="34" class="x-select-viewport">
+      <x-input class="search-input" xLblText="查询" [(ngModel)]="searchToken" (onValueChanged)="onSearch($event)">
+      </x-input>
+      <div *ngIf="!xItems || !xItems.length || xItems.length === 0">No data</div>
+      <div *cdkVirtualFor="let item of xItems" [class.active]="isActive(item)" class="select-item"
+        (click)="onSelect(item)">
+        {{ item.label }}
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </ng-template>
+</div>

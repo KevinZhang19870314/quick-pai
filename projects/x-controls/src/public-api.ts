@@ -7,3 +7,4 @@ export * from './lib/radio-button';
 export * from './lib/input';
 export * from './lib/tabs';
 export * from './lib/tooltip';
+export * from './lib/select';

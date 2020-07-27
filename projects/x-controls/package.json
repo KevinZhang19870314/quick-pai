@@ -7,7 +7,8 @@
     "url": "https://github.com/KevinZhang19870314/quick-pai"
   },
   "keywords": [
-    "x",
+    "component",
+    "typescript",
     "x-controls",
     "angular",
     "ngx",
@@ -20,8 +21,9 @@
   },
   "homepage": "https://github.com/KevinZhang19870314/quick-pai/blob/master/README.md",
   "peerDependencies": {
-    "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0",
-    "@angular/cdk": "^7.2.0"
+    "@angular/common": "~7.2.16",
+    "@angular/core": "~7.2.16",
+    "@angular/cdk": "~7.2.16",
+    "@angular/animations": "~7.2.16"
   }
 }
