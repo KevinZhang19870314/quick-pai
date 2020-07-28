@@ -1,20 +1,44 @@
-<div class="x-select-wrapper">
-  <div class="selected-item-wrapper" (click)="onOpenDropdown($event, dropdown, origin)" #origin>
-    <span [ngClass]="{'placeholder': !isItemSelected}">{{ label }}</span>
+<div class="x-select-wrapper flex-wrap row-flex">
+  <label class="select-lbl">{{ xSettings.lblName }}</label>
+  <div class="selected-item-wrapper" [style.width.px]="xSettings.width"
+    (click)="onOpenDropdown($event, dropdown, origin)" #origin>
+    <span [ngClass]="{'placeholder': !isItemSelected}">{{ selectedLabel }}</span>
 
+    <i class="fas fa-times" *ngIf="!xSettings.isRequired && isItemSelected" (click)="onRemoveItems($event)"></i>
     <i class="fas fa-caret-down" *ngIf="!isDropdownOpen"></i>
     <i class="fas fa-caret-up" *ngIf="isDropdownOpen"></i>
   </div>
 
   <ng-template #dropdown>
-    <cdk-virtual-scroll-viewport itemSize="34" class="x-select-viewport">
+    <cdk-virtual-scroll-viewport itemSize="34" class="x-select-viewport" [style.width.px]="xSettings.width">
       <x-input class="search-input" xLblText="查询" [(ngModel)]="searchToken" (onValueChanged)="onSearch($event)">
       </x-input>
       <div *ngIf="!xItems || !xItems.length || xItems.length === 0">No data</div>
-      <div *cdkVirtualFor="let item of xItems" [class.active]="isActive(item)" class="select-item"
-        (click)="onSelect(item)">
-        {{ item.label }}
-      </div>
+
+      <!-- Single select -->
+      <ng-container *ngIf="xSettings.single">
+        <div *cdkVirtualFor="let item of xItems" [class.active]="isActive(item)" class="select-item"
+          (click)="onSelect(item)">
+          <ng-container *ngIf="!xSelectItemRef || !xSelectItemRef.template">{{ item.label }}</ng-container>
+          <ng-container *ngIf="xSelectItemRef && xSelectItemRef.template">
+            <ng-container *ngTemplateOutlet="xSelectItemRef.template; context: { item: item }">
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <!-- Multiple select -->
+      <ng-container *ngIf="!xSettings.single">
+        <div *cdkVirtualFor="let item of xItems" [class.active]="isActive(item)" class="select-item flex-wrap row-flex"
+          (click)="onSelect(item)">
+          <x-checkbox [(ngModel)]="item.checked"></x-checkbox>
+          <ng-container *ngIf="!xSelectItemRef || !xSelectItemRef.template">{{ item.label }}</ng-container>
+          <ng-container *ngIf="xSelectItemRef && xSelectItemRef.template">
+            <ng-container *ngTemplateOutlet="xSelectItemRef.template; context: { item: item }">
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
     </cdk-virtual-scroll-viewport>
   </ng-template>
 </div>

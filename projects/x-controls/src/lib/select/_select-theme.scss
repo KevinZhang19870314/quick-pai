@@ -14,6 +14,35 @@
   @include x-controls-color($warn, 'warn');
 
   .x-select-wrapper {
-    color: x-color($foreground, text, 0.95);
+    color: x-color($foreground, text);
+
+    .selected-item-wrapper {
+      background: x-color($background, background);
+      border: 1px solid x-color($primary);
+
+      &>.placeholder {
+        color: x-color($foreground, placeholder);
+      }
+
+      &:hover {
+        background-color: x-color($background, hover);
+      }
+    }
+  }
+
+  .x-select-viewport {
+    border: 1px solid x-color($primary);
+    background: x-color($background, background);
+    box-shadow: 0 1px 5px x-color($background, shadow);
+
+    .select-item {
+      &.active {
+        background-color: x-color($background, highlight);
+      }
+
+      &:hover {
+        background-color: x-color($background, hover);
+      }
+    }
   }
 }

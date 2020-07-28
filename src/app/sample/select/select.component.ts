@@ -10,16 +10,19 @@ import { Utils } from 'projects/x-controls/src/lib/common/utils';
 export class SelectComponent implements OnInit {
 
   xItems: Array<XSelectItem>;
+  xSettings: XSelectSettings = { lblName: '门店选择', single: true, width: 320 };
+  xSelectedItem: XSelectItem;
 
   constructor() { }
 
   ngOnInit() {
     let results: Array<XSelectItem> = [];
     for (let i = 0; i < 1000; i++) {
-      results.push({ id: '#' + i, label: 'Label#' + i + Utils.ID(), hah: 'hah#' + i });
+      results.push({ id: '#' + i, label: '门店#' + i, hah: 'hah#' + i });
     }
 
     this.xItems = results;
+    this.xSelectedItem = this.xItems[100];
   }
 
   onSelected($event) {

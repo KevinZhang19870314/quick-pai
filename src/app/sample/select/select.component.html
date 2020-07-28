@@ -1,3 +1,11 @@
-<div class="app-select-wrapper flex-wrap row-flex wrap">
-  <x-select [xItems]="xItems" (onSelected)="onSelected($event)"></x-select>
+<div class="app-select-wrapper flex-wrap col-flex wrap">
+  <x-select [(ngModel)]="xSelectedItem" [xItems]="xItems" [xSettings]="xSettings" (onSelected)="onSelected($event)">
+    <x-select-item>
+      <ng-template let-item="item">
+        {{ item.id + ' - ' + item.label }}
+      </ng-template>
+    </x-select-item>
+  </x-select>
+
+  <span *ngIf="xSelectedItem">{{ '已选：' + xSelectedItem.id + ' - ' + xSelectedItem.label }}</span>
 </div>
