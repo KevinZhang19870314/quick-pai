@@ -20,12 +20,19 @@
       background: x-color($background, background);
       border: 1px solid x-color($primary);
 
-      &>.placeholder {
+      & .placeholder {
         color: x-color($foreground, placeholder);
       }
 
       &:hover {
         background-color: x-color($background, hover);
+      }
+
+      .mul-item-container {
+
+        .mul-item {
+          background-color: x-color($primary, lighter);
+        }
       }
     }
   }
@@ -34,6 +41,7 @@
     border: 1px solid x-color($primary);
     background: x-color($background, background);
     box-shadow: 0 1px 5px x-color($background, shadow);
+    border-top: none;
 
     .select-item {
       &.active {
@@ -42,6 +50,21 @@
 
       &:hover {
         background-color: x-color($background, hover);
+      }
+    }
+
+    &>cdk-virtual-scroll-viewport {
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: x-color($background, hover);
       }
     }
   }

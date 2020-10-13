@@ -10,6 +10,7 @@
     outline: none;
     transition: box-shadow .3s, border .3s;
     font-size: 16px;
+    width: 100%;
 
     &:focus+label {
       transform: translateY(-20px) scale(.8);

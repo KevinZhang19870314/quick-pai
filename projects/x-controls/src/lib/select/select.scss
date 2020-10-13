@@ -32,30 +32,54 @@
       font-size: 13px;
       padding: 0 5px;
     }
+
+    &>.none-badge-count {
+      position: absolute;
+      right: 38px;
+      line-height: 23px;
+      padding: 0 5px;
+    }
+
+    .mul-item-container {
+      display: inline-block;
+
+      .mul-item {
+        padding: 2px 5px;
+        margin-right: 2px;
+
+        .fas.fa-times {
+          font-size: 10px;
+        }
+      }
+    }
   }
 }
 
 .x-select-viewport {
   min-width: 220px;
-  padding: 6px;
+  padding: 0 6px;
   height: 300px;
   border-radius: 3px;
 
   .search-input {
-    padding: 5px;
+    padding: 0 5px 0 5px;
     display: inline-block;
   }
 
-  .select-item {
-    height: 28px;
-    line-height: 28px;
-    padding: 3px 6px;
-    font-size: 14px;
-    cursor: pointer;
-    align-items: center;
+  &>cdk-virtual-scroll-viewport {
+    height: 100%;
 
-    &>x-checkbox {
-      margin-right: 3px;
+    .select-item {
+      height: 28px;
+      line-height: 28px;
+      padding: 3px 6px;
+      font-size: 14px;
+      cursor: pointer;
+      align-items: center;
+
+      &>x-checkbox {
+        margin-right: 3px;
+      }
     }
   }
 }

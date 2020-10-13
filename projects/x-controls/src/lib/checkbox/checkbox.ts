@@ -48,6 +48,8 @@ export class XCheckbox implements OnInit, ControlValueAccessor {
   writeValue(checked: any): void {
     if (typeof checked === 'boolean') {
       this.xChecked = checked;
+    } else {
+      this.xChecked = false;
     }
   }
 

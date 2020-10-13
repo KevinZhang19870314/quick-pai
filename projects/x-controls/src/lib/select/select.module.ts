@@ -5,7 +5,7 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { XInputModule } from '../input';
 import { FormsModule } from '@angular/forms';
 import { XSelectItemDirective } from './select-item.directive';
-import { XCheckboxModule } from 'x-controls';
+import { XCheckboxModule } from '../checkbox';
 
 /**
  * @ignore

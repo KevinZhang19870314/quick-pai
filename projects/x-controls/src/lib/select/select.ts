@@ -4,10 +4,10 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayService } from '../common';
 import { XSelectItemDirective } from './select-item.directive';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { trigger, state, style, transition, animate, query, stagger, group } from '@angular/animations';
 
 /**
- * TODO: 1. scroll down show search input;
- *       2. support multiple select;
+ * TODO: 1. support multiple select;
  */
 @Component({
   selector: `x-select`,
@@ -44,19 +44,12 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
   @ContentChild(XSelectItemDirective) xSelectItemRef: XSelectItemDirective;
 
-  private overlayRef: OverlayRef;
-  private withPositions: any = {
-    originX: 'center',
-    originY: 'bottom',
-    overlayX: 'center',
-    overlayY: 'top',
-    offsetX: 0,
-    offsetY: 0
-  };
   private originXItems: Array<XSelectItem> = [];
+  /**Search text binding */
   private searchToken: string;
 
   //#region Getter
+  /**For single select */
   get selectedLabel() {
     this.checkItemExists();
 
@@ -64,7 +57,35 @@ export class XSelect implements OnInit, ControlValueAccessor {
       return this.xSelectedItem ? (this.xSelectedItem as XSelectItem).label : this.xSettings.placeHolder;
     }
 
-    return 'TODO: multiple select';
+    return this.xSettings.placeHolder;
+  }
+
+  /**For multiple select */
+  get selectedItems() {
+    this.checkItemExists();
+
+    let items: Array<XSelectItem> = [];
+    let selectedItems = this.xSelectedItem as Array<XSelectItem>;
+    if (!this.xSettings.single && selectedItems && selectedItems.length > 0) {
+      selectedItems.forEach(item => {
+        items.push(item);
+      });
+
+      return items;
+    }
+
+    return [{ id: -1, label: this.xSettings.placeHolder }];
+  }
+
+  get selectedBadgeItems() {
+    let items = [...this.selectedItems];
+    items.splice(this.xSettings.badge);
+
+    return items;
+  }
+
+  get noneBadgeCount() {
+    return this.selectedItems.length - this.xSettings.badge;
   }
 
   get isDropdownOpen() {
@@ -72,7 +93,16 @@ export class XSelect implements OnInit, ControlValueAccessor {
   }
 
   get isItemSelected() {
-    return this.selectedLabel !== this.xSettings.placeHolder;
+    if (this.xSettings.single) {
+      return this.selectedLabel !== this.xSettings.placeHolder;
+    }
+
+    // Multiple select
+    if (this.selectedItems && this.selectedItems.length > 0) {
+      return this.selectedItems[0].label !== this.xSettings.placeHolder;
+    }
+
+    return false;
   }
   //#endregion
 
@@ -97,7 +127,20 @@ export class XSelect implements OnInit, ControlValueAccessor {
       return;
     }
 
-    // TODO: multiple select
+    //#region Multiple select
+    if (!this.xSelectedItem || !this.xSelectedItem.length) {
+      this.xSelectedItem = [];
+    }
+
+    if (item.checked) {
+      this.xSelectedItem.push(item);
+    } else {
+      this.xSelectedItem = this.xSelectedItem.filter((f: XSelectItem) => f.id !== item.id);
+    }
+
+    this.onSelected.emit(item);
+    this.emitChange(this.xSelectedItem);
+    //#endregion
   }
 
   onSearch(val: any) {
@@ -135,6 +178,18 @@ export class XSelect implements OnInit, ControlValueAccessor {
   onRemoveItems($event: MouseEvent) {
     this.xSelectedItem = null;
     this.clearSearch();
+    this.xItems.forEach(item => {
+      item.checked = false;
+    });
+
+    $event.stopPropagation();
+  }
+
+  onRemoveItem($event: MouseEvent, item: XSelectItem) {
+    this.xSelectedItem = this.xSelectedItem.filter((f: XSelectItem) => f.id !== item.id);
+    this.clearSearch();
+
+    item.checked = !item.checked;
 
     $event.stopPropagation();
   }
@@ -163,7 +218,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
       label: 'name',
       single: true,
       placeHolder: '请选择',
-      width: 220
+      width: 220,
+      badge: 99999
     };
 
     this.xSettings = Object.assign(initSettings, this.xSettings);
@@ -175,13 +231,27 @@ export class XSelect implements OnInit, ControlValueAccessor {
         this.xSelectedItem = null;
       }
     } else {
-      // TODO: multiple select
+      // Multiple select
+      if (this.xSelectedItem && this.xSelectedItem.length > 0) {
+        let selectedItems = [];
+        this.xSelectedItem.forEach((item: XSelectItem) => {
+          if (this.originXItems.find(f => f.id === item.id)) {
+            selectedItems.push(item);
+          }
+        });
+
+        this.xSelectedItem = [];
+        this.xSelectedItem = selectedItems;
+      }
     }
   }
 
+  /**
+   * 清除查询并展示所有符合条件的items
+   */
   private clearSearch() {
     this.searchToken = '';
-    this.xItems = this.originXItems;
+    this.xItems = [...this.originXItems];
   }
   //#endregion
 }
@@ -207,6 +277,9 @@ export interface XSelectSettings {
 
   /**Set the width of x-select, default is 220, unit px */
   width?: number;
+
+  /**Display badge count, default is 9999 */
+  badge?: number;
 }
 
 export interface XSelectItem {

@@ -8,4 +8,17 @@
   </x-select>
 
   <span *ngIf="xSelectedItem">{{ '已选：' + xSelectedItem.id + ' - ' + xSelectedItem.label }}</span>
+
+  <br />
+  <br />
+
+  <x-select [(ngModel)]="xSelectedItem_m" [xItems]="xItems_m" [xSettings]="xSettings_m" (onSelected)="onSelected_m($event)">
+    <x-select-item>
+      <ng-template let-item="item">
+        {{ item.id + ' - ' + item.label }}
+      </ng-template>
+    </x-select-item>
+  </x-select>
+
+  <span *ngIf="xSelectedItem_m">{{ '已选：' + xSelectedItem_m.id + ' - ' + xSelectedItem_m.label }}</span>
 </div>
