@@ -30,7 +30,7 @@
 
   <ng-template #dropdown>
     <div class="x-select-viewport flex-wrap col-flex">
-      <x-input class="search-input" xLblText="查询" [(ngModel)]="searchToken" (onValueChanged)="onSearch($event)">
+      <x-input class="search-input" xPlaceholder="查询" [(ngModel)]="searchToken" (onValueChanged)="onSearch($event)">
       </x-input>
       <cdk-virtual-scroll-viewport itemSize="34" [style.width.px]="xSettings.width">
         <div *ngIf="!xItems || !xItems.length || xItems.length === 0">No data</div>

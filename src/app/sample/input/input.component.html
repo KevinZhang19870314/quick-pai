@@ -4,6 +4,7 @@
   <x-input xLblText="主题" [(ngModel)]="val2"></x-input>
   <x-input xLblText="其他（禁用）" [(ngModel)]="val3" xDisabled="true"></x-input>
   <x-input xLblText="禁用" xDisabled="true"></x-input>
+  <x-input [xPlaceholder]="'没有Label text'"></x-input>
 </div>
 <br />
 <br />
@@ -11,7 +12,8 @@
 <div class="app-input-wrapper flex-wrap col-flex wrap" [formGroup]="testForm">
   <x-input xLblText="姓名" formControlName="name" xMsg="{{ (f.name.invalid && !f.name.pristine) ? '请填写完整姓名':'' }}">
   </x-input>
-  <x-input xLblText="身高" formControlName="height" xMsg="{{ (f.height.invalid && !f.height.pristine) ? '身高不得超过300cm':'' }}"></x-input>
+  <x-input xLblText="身高" formControlName="height"
+    xMsg="{{ (f.height.invalid && !f.height.pristine) ? '身高不得超过300cm':'' }}"></x-input>
   <x-button (click)="onFormSubmit()">提交</x-button>
   <span>{{ formResult }}</span>
 </div>

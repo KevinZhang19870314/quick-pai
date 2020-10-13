@@ -23,6 +23,7 @@ export class XInput implements OnInit, OnChanges, ControlValueAccessor {
   @Input() xLblText: string;
   @Input() xValue: string;
   @Input() xMsg: string;
+  @Input() xPlaceholder: string = '';
 
   _disabled: boolean = false;
   @Input()

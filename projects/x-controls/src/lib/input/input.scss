@@ -1,6 +1,10 @@
 .x-input-wrapper {
   position: relative;
-  margin-top: 20px;
+  align-items: baseline;
+
+  .x-input-container {
+    width: 100%;
+  }
 
   .x-input-field {
     padding: 5px 0px;
@@ -12,28 +16,24 @@
     font-size: 16px;
     width: 100%;
 
-    &:focus+label {
-      transform: translateY(-20px) scale(.8);
-      transform-origin: 0% 0%;
-      opacity: .6;
-    }
+    // &:focus+label {
+    //   transform: translateY(-20px) scale(.8);
+    //   transform-origin: 0% 0%;
+    //   opacity: .6;
+    // }
 
-    &.active+label {
-      transform: translateY(-20px) scale(.8);
-      transform-origin: 0% 0%;
-      opacity: .6;
-    }
+    // &.active+label {
+    //   transform: translateY(-20px) scale(.8);
+    //   transform-origin: 0% 0%;
+    //   opacity: .6;
+    // }
   }
 
   .x-input-lbl {
-    position: absolute;
-    top: 0;
-    left: 0;
-    cursor: text;
-    opacity: .4;
-    transition: transform .2s ease-out, color .2s ease-out;
-    transform-origin: 0% 100%;
-    text-align: initial;
+    width: auto;
+    white-space: nowrap;
+    margin-right: 15px;
+    font-weight: bold;
   }
 
   .x-input-msg {

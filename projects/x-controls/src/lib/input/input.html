@@ -1,7 +1,9 @@
-<div class="x-input-wrapper">
-  <input class="x-input-field" [ngClass]="{'active': xValue, 'disabled': xDisabled}" [id]="uid"
-    [attr.disabled]="xDisabled ? '' : null" [(ngModel)]="xValue" (change)="onChanged()"
-    (keyup)="onChanged()" />
-  <label class="x-input-lbl" [for]="uid">{{ xLblText }}</label>
-  <span class="x-input-msg" attr.data-input-msg="{{ xMsg }}"></span>
+<div class="x-input-wrapper flex-wrap row-flex">
+  <label *ngIf="xLblText" class="x-input-lbl" [for]="uid">{{ xLblText }}</label>
+  <div class="x-input-container flex-wrap col-flex">
+    <input class="x-input-field" [ngClass]="{'active': xValue, 'disabled': xDisabled}" [id]="uid"
+      [attr.disabled]="xDisabled ? '' : null" [(ngModel)]="xValue" [placeholder]="xPlaceholder" (change)="onChanged()"
+      (keyup)="onChanged()" />
+    <span class="x-input-msg" attr.data-input-msg="{{ xMsg }}"></span>
+  </div>
 </div>
