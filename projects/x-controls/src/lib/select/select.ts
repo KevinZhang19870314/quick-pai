@@ -7,7 +7,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { trigger, state, style, transition, animate, query, stagger, group } from '@angular/animations';
 
 /**
- * TODO: 1. support multiple select;
+ * 下拉选择组件 - 支持单选和多选功能
  */
 @Component({
   selector: `x-select`,
@@ -93,6 +93,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
     //#endregion
 
     this.noneBadgeCount = this.selectedItems.length - this.xSettings.badge;
+
+    this.cdf.detectChanges();
   }
 
   get isDropdownOpen() {
@@ -134,7 +136,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
     this.xSelectedItem = checked ? [...this.xItems] : [];
     this.buildMultipleSelect();
-    this.cdf.detectChanges();
     this.onSelectedAll.emit(this.xSelectedItem);
     this.emitChange(this.xSelectedItem);
   }
@@ -161,7 +162,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
     }
 
     this.buildMultipleSelect();
-    this.cdf.detectChanges();
     this.onSelected.emit(item);
     this.emitChange(this.xSelectedItem);
     //#endregion
@@ -207,7 +207,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
     });
 
     this.buildMultipleSelect();
-    this.cdf.detectChanges();
     this.onDeselectedAll.emit(this.xItems);
     this.emitChange(this.xSelectedItem);
     $event.stopPropagation();
@@ -220,7 +219,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
     item.checked = false;
 
     this.buildMultipleSelect();
-    this.cdf.detectChanges();
     this.onDeselected.emit(item);
     this.emitChange(this.xSelectedItem);
     $event.stopPropagation();
@@ -240,7 +238,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
         }
       });
       this.buildMultipleSelect();
-      this.cdf.detectChanges();
     }
   }
 
