@@ -12,7 +12,8 @@
   <br />
   <br />
 
-  <x-select [(ngModel)]="xSelectedItem_m" [xItems]="xItems_m" [xSettings]="xSettings_m" (onSelected)="onSelected_m($event)">
+  <x-select [(ngModel)]="xSelectedItem_m" [xItems]="xItems_m" [xSettings]="xSettings_m"
+    (onSelected)="onSelected_m($event)">
     <x-select-item>
       <ng-template let-item="item">
         {{ item.id + ' - ' + item.label }}
@@ -20,5 +21,9 @@
     </x-select-item>
   </x-select>
 
-  <span *ngIf="xSelectedItem_m">{{ '已选：' + xSelectedItem_m.id + ' - ' + xSelectedItem_m.label }}</span>
+  <span *ngIf="xSelectedItem_m && xSelectedItem_m.length > 0">{{ '已选：' }} <br />
+    <span *ngFor="let item of xSelectedItem_m">
+      {{ item.label }}
+    </span>
+  </span>
 </div>

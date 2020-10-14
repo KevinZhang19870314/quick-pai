@@ -32,6 +32,9 @@
     <div class="x-select-viewport flex-wrap col-flex">
       <x-input class="search-input" xPlaceholder="查询" [(ngModel)]="searchToken" (onValueChanged)="onSearch($event)">
       </x-input>
+      <x-checkbox class="select-all" *ngIf="xSettings.isShowCheckedAll && !xSettings.single"
+        [(ngModel)]="xSettings.isCheckedAll" (onCheckChanged)="onSelectAll($event)">全选
+      </x-checkbox>
       <cdk-virtual-scroll-viewport itemSize="34" [style.width.px]="xSettings.width">
         <div *ngIf="!xItems || !xItems.length || xItems.length === 0">No data</div>
 

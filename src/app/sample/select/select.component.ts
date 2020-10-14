@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { XSelectSettings, XSelectItem } from 'projects/x-controls/src';
 import { Utils } from 'projects/x-controls/src/lib/common/utils';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  styleUrls: ['./select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectComponent implements OnInit {
 
@@ -14,8 +15,8 @@ export class SelectComponent implements OnInit {
   xSelectedItem: XSelectItem;
 
   xItems_m: Array<XSelectItem> = [];
-  xSettings_m: XSelectSettings = { lblName: '城市选择', single: false, width: 320, badge: 3 };
-  xSelectedItem_m: XSelectItem;
+  xSettings_m: XSelectSettings = { lblName: '城市选择', single: false, width: 320, badge: 3, isShowCheckedAll: true };
+  xSelectedItem_m: Array<XSelectItem>;
 
   constructor() { }
 
@@ -30,11 +31,12 @@ export class SelectComponent implements OnInit {
 
     // Multiple select
     let results_m: Array<XSelectItem> = [];
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 100; i++) {
       results_m.push({ id: '#' + i, label: '城市#' + i, hah: 'hah#' + i });
     }
 
     this.xItems_m = results_m;
+    this.xSelectedItem_m = [this.xItems_m[0], this.xItems_m[2], this.xItems_m[1]];
   }
 
   onSelected($event) {
