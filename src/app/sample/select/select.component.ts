@@ -5,8 +5,7 @@ import { Utils } from 'projects/x-controls/src/lib/common/utils';
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
 

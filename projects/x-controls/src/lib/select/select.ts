@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, TemplateRef, ViewContainerRef, Output, EventEmitter, ContentChild, forwardRef, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, TemplateRef, ViewContainerRef, Output, EventEmitter, ContentChild, forwardRef, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { OverlayRef, Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OverlayService } from '../common';
@@ -13,6 +13,7 @@ import { trigger, state, style, transition, animate, query, stagger, group } fro
   selector: `x-select`,
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.disabled]': 'xDisabled === "true" || xDisabled === true'
   },
@@ -23,7 +24,6 @@ import { trigger, state, style, transition, animate, query, stagger, group } fro
       multi: true,
     }]
 })
-
 export class XSelect implements OnInit, ControlValueAccessor {
   private emitChange = (_: any) => { };
 
@@ -67,26 +67,32 @@ export class XSelect implements OnInit, ControlValueAccessor {
   }
 
   /**For multiple select */
-  get selectedItems() {
-    this.checkItemExists();
+  selectedItems: Array<XSelectItem> = [];
+  selectedBadgeItems: Array<XSelectItem> = [];
+  noneBadgeCount: number = 0;
 
-    let selectedItems = this.xSelectedItem as Array<XSelectItem>;
-    if (!this.xSettings.single && selectedItems && selectedItems.length > 0) {
-      return [...selectedItems];
+  private buildMultipleSelect() {
+    if (this.xSettings.single) {
+      return;
     }
 
-    return [{ id: -1, label: this.xSettings.placeHolder }];
-  }
+    //#region selectedItems
+    this.checkItemExists();
+    let selectedItems = this.xSelectedItem as Array<XSelectItem>;
+    if (selectedItems && selectedItems.length > 0) {
+      this.selectedItems = [...selectedItems];
+    } else {
+      this.selectedItems = [{ id: -1, label: this.xSettings.placeHolder }];
+    }
+    //#endregion
 
-  get selectedBadgeItems() {
+    //#region selectedBadgeItems
     let items = [...this.selectedItems];
     items.splice(this.xSettings.badge);
+    this.selectedBadgeItems = items;
+    //#endregion
 
-    return items;
-  }
-
-  get noneBadgeCount() {
-    return this.selectedItems.length - this.xSettings.badge;
+    this.noneBadgeCount = this.selectedItems.length - this.xSettings.badge;
   }
 
   get isDropdownOpen() {
@@ -105,6 +111,10 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
     return false;
   }
+
+  get isCheckedAll() {
+    return this.xItems.length === this.xSelectedItem.length;
+  }
   //#endregion
 
   constructor(private viewContainerRef: ViewContainerRef,
@@ -118,12 +128,15 @@ export class XSelect implements OnInit, ControlValueAccessor {
   ngOnChanges(changes: SimpleChanges) { }
 
   onSelectAll(checked: boolean) {
-    this.xSelectedItem = [...this.xItems];
-    this.xSelectedItem.forEach(item => {
+    this.xItems.forEach(item => {
       item.checked = checked;
     });
 
+    this.xSelectedItem = checked ? [...this.xItems] : [];
+    this.buildMultipleSelect();
     this.cdf.detectChanges();
+    this.onSelectedAll.emit(this.xSelectedItem);
+    this.emitChange(this.xSelectedItem);
   }
 
   onSelect(item: XSelectItem) {
@@ -147,6 +160,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
       this.xSelectedItem = this.xSelectedItem.filter((f: XSelectItem) => f.id !== item.id);
     }
 
+    this.buildMultipleSelect();
+    this.cdf.detectChanges();
     this.onSelected.emit(item);
     this.emitChange(this.xSelectedItem);
     //#endregion
@@ -180,17 +195,19 @@ export class XSelect implements OnInit, ControlValueAccessor {
     }
 
     this.overlayService.openDropdown(origin, dropdownTpl, this.viewContainerRef, null).subscribe(res => {
-      // close
+      this.buildXItemsCheckedStatus();
     });
   }
 
   onRemoveItems($event: MouseEvent) {
-    this.xSelectedItem = null;
+    this.xSelectedItem = [];
     this.clearSearch();
     this.xItems.forEach(item => {
       item.checked = false;
     });
 
+    this.buildMultipleSelect();
+    this.cdf.detectChanges();
     this.onDeselectedAll.emit(this.xItems);
     this.emitChange(this.xSelectedItem);
     $event.stopPropagation();
@@ -202,6 +219,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
     item.checked = false;
 
+    this.buildMultipleSelect();
+    this.cdf.detectChanges();
     this.onDeselected.emit(item);
     this.emitChange(this.xSelectedItem);
     $event.stopPropagation();
@@ -220,9 +239,9 @@ export class XSelect implements OnInit, ControlValueAccessor {
           item.checked = true;
         }
       });
+      this.buildMultipleSelect();
+      this.cdf.detectChanges();
     }
-
-    this.cdf.detectChanges();
   }
 
   registerOnChange(fn: any): void {
@@ -236,8 +255,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
   private init() {
     this.originXItems = [...this.xItems];
     let initSettings: XSelectSettings = {
-      id: 'id',
-      label: 'name',
       single: true,
       placeHolder: '请选择',
       width: 220,
@@ -245,6 +262,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
     };
 
     this.xSettings = Object.assign(initSettings, this.xSettings);
+    this.buildMultipleSelect();
   }
 
   private checkItemExists() {
@@ -274,17 +292,24 @@ export class XSelect implements OnInit, ControlValueAccessor {
   private clearSearch() {
     this.searchToken = '';
     this.xItems = [...this.originXItems];
+
+    this.buildXItemsCheckedStatus();
+  }
+
+  private buildXItemsCheckedStatus() {
+    if (this.xSettings.single) {
+      return;
+    }
+
+    this.xItems.forEach(item => {
+      let selectedItem = this.xSelectedItem.find(f => f.id === item.id);
+      item.checked = selectedItem ? true : false;
+    });
   }
   //#endregion
 }
 
 export interface XSelectSettings {
-  /**Property name for id, default is 'id' */
-  id?: string;
-
-  /**Property name for label, default is 'name' */
-  label?: string;
-
   /**Left side label name */
   lblName?: string;
 
@@ -300,7 +325,7 @@ export interface XSelectSettings {
   /**Set the width of x-select, default is 220, unit px */
   width?: number;
 
-  /**Display badge count, default is 9999 */
+  /**Display badge count, default is 99999 */
   badge?: number;
 
   /**是否展示全选按钮 */
