@@ -194,10 +194,12 @@ export class XSelect implements OnInit, ControlValueAccessor {
       this.overlayService.close(null);
       return;
     }
-
+    
     this.overlayService.openDropdown(origin, dropdownTpl, this.viewContainerRef, null).subscribe(res => {
-      this.buildXItemsCheckedStatus();
+      // close
     });
+
+    this.buildXItemsCheckedStatus();
   }
 
   onRemoveItems($event: MouseEvent) {
@@ -262,7 +264,6 @@ export class XSelect implements OnInit, ControlValueAccessor {
     };
 
     this.xSettings = Object.assign(initSettings, this.xSettings);
-    this.buildMultipleSelect();
   }
 
   private checkItemExists() {

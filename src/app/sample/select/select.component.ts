@@ -45,7 +45,7 @@ export class SelectComponent implements OnInit {
     }
 
     this.xItems_m = results_m;
-    this.xSelectedItem_m = [this.xItems_m[0], this.xItems_m[2], this.xItems_m[1]];
+    this.xSelectedItem_m = [JSON.parse(JSON.stringify(this.xItems_m[0])), this.xItems_m[2], this.xItems_m[1]];
     //#endregion
 
     //#region Reactive forms
@@ -57,7 +57,7 @@ export class SelectComponent implements OnInit {
     this.xItems_m_form = [...results_m_form];
     this.formGroup = this.fb.group({
       single: [this.xItems[99], []],
-      multiple: [[], []]
+      multiple: [[JSON.parse(JSON.stringify(this.xItems_m_form[1])), this.xItems_m_form[999]], []]
     });
     //#endregion
   }
