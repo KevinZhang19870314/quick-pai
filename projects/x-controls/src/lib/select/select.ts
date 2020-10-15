@@ -145,6 +145,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
       this.xSelectedItem = item;
       this.onSelected.emit(item);
       this.emitChange(item);
+      this.cdf.detectChanges();
 
       this.overlayService.close({ item: item });
       return;
@@ -200,7 +201,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
   }
 
   onRemoveItems($event: MouseEvent) {
-    this.xSelectedItem = [];
+    this.xSelectedItem = this.xSettings.single ? null : [];
     this.clearSearch();
     this.xItems.forEach(item => {
       item.checked = false;
@@ -231,7 +232,9 @@ export class XSelect implements OnInit, ControlValueAccessor {
     }
 
     this.xSelectedItem = obj;
-    if (!this.xSettings.single) {
+    if (this.xSettings.single) {
+      this.cdf.detectChanges();
+    } else {
       this.xSelectedItem.forEach(item => {
         if (item.checked === undefined) {
           item.checked = true;

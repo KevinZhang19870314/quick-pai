@@ -1,3 +1,4 @@
+<label>NgModel 绑定</label>
 <div class="app-select-wrapper flex-wrap col-flex wrap">
   <x-select [(ngModel)]="xSelectedItem" [xItems]="xItems" [xSettings]="xSettings" (onSelected)="onSelected($event)">
     <x-select-item>
@@ -6,10 +7,7 @@
       </ng-template>
     </x-select-item>
   </x-select>
-
   <span *ngIf="xSelectedItem">{{ '已选：' + xSelectedItem.id + ' - ' + xSelectedItem.label }}</span>
-
-  <br />
   <br />
 
   <x-select [(ngModel)]="xSelectedItem_m" [xItems]="xItems_m" [xSettings]="xSettings_m"
@@ -20,9 +18,22 @@
       </ng-template>
     </x-select-item>
   </x-select>
-
   <span *ngIf="xSelectedItem_m && xSelectedItem_m.length > 0">{{ '已选：' }} <br />
     <span *ngFor="let item of xSelectedItem_m">
+      {{ item.label }}
+    </span>
+  </span>
+</div>
+
+<br />
+<label>Reactive forms 绑定</label>
+<div class="app-select-wrapper flex-wrap col-flex wrap" [formGroup]="formGroup">
+  <x-select formControlName="single" [xItems]="xItems" [xSettings]="xSettings"></x-select>
+  <span *ngIf="f.single.value">{{ '已选：' + f.single.value.id + ' - ' + f.single.value.label }}</span>
+  <br />
+  <x-select formControlName="multiple" [xItems]="xItems_m_form" [xSettings]="xSettings_m"></x-select>
+  <span *ngIf="f.multiple.value && f.multiple.value.length > 0">{{ '已选：' }} <br />
+    <span *ngFor="let item of f.multiple.value">
       {{ item.label }}
     </span>
   </span>
