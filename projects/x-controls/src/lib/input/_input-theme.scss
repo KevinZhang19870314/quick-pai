@@ -13,8 +13,10 @@
     color: x-color($foreground, text, 0.95);
 
     .x-input-field {
-      border-bottom: 1px solid x-color($foreground, control);
+      // border-bottom: 1px solid x-color($foreground, control);
       background-color: x-color($background, background);
+      border: none;
+      outline: none;
 
       &.disabled {
         color: x-color($foreground, disabled-text);
@@ -22,8 +24,8 @@
 
       &:not(.disabled):active,
       &:not(.disabled):focus {
-        border-bottom: 1px solid x-color($primary);
-        box-shadow: 0 1px 0 0 x-color($primary);
+        // border-bottom: 1px solid x-color($primary);
+        // box-shadow: 0 1px 0 0 x-color($primary);
       }
 
       &:focus+label {
@@ -37,6 +39,13 @@
 
     .x-input-msg {
       color: x-color($warn);
+    }
+
+    .rough {
+
+      &>svg {
+        stroke: x-color($primary);
+      }
     }
   }
 }

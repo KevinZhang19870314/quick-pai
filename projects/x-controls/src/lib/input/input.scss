@@ -4,6 +4,22 @@
 
   .x-input-container {
     width: 100%;
+    position: relative;
+
+    .rough {
+      position: absolute;
+      top: 0;
+      left: 0px;
+      right: 0px;
+      bottom: 0;
+      pointer-events: none;
+
+      &>svg {
+        display: block;
+        stroke-width: 1;
+        fill: transparent;
+      }
+    }
   }
 
   .x-input-field {
@@ -15,18 +31,6 @@
     transition: box-shadow .3s, border .3s;
     font-size: 16px;
     width: 100%;
-
-    // &:focus+label {
-    //   transform: translateY(-20px) scale(.8);
-    //   transform-origin: 0% 0%;
-    //   opacity: .6;
-    // }
-
-    // &.active+label {
-    //   transform: translateY(-20px) scale(.8);
-    //   transform-origin: 0% 0%;
-    //   opacity: .6;
-    // }
   }
 
   .x-input-lbl {
@@ -34,7 +38,6 @@
     white-space: nowrap;
     margin-right: 15px;
     font-weight: 500;
-    font-size: 16px;
   }
 
   .x-input-msg {

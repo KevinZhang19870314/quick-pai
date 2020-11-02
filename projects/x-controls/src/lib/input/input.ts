@@ -1,6 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, SimpleChanges, Input, Output, EventEmitter, forwardRef, OnChanges, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Utils } from '../common/utils';
+import { XControl, Point } from '../common/control';
+import { rectangle, line } from '../common/wired-lib';
 
 @Component({
   selector: `x-input`,
@@ -16,7 +18,8 @@ import { Utils } from '../common/utils';
     }]
 })
 
-export class XInput implements OnInit, OnChanges, ControlValueAccessor {
+export class XInput extends XControl implements OnInit, OnChanges, ControlValueAccessor {
+
   private emitChange = (_: any) => { };
   uid = Utils.ID();
 
@@ -36,13 +39,19 @@ export class XInput implements OnInit, OnChanges, ControlValueAccessor {
 
   @Output() onValueChanged = new EventEmitter<any>();
 
-  constructor() { }
+  @ViewChild('inputContainer') inputContainer: ElementRef<HTMLElement>;
+
+  constructor(private el: ElementRef) { super(el); }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges) {
 
+  }
+
+  ngAfterViewInit() {
+    this.render();
   }
 
   onChanged() {
@@ -62,6 +71,20 @@ export class XInput implements OnInit, OnChanges, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void { }
+
+  protected canvasSize(): Point {
+    const size = {
+      width: +this.inputContainer.nativeElement.offsetWidth,
+      height: +this.inputContainer.nativeElement.offsetHeight,
+    };
+
+    return [size.width, size.height];
+  }
+  
+  protected draw(svg: SVGElement, size: Point): void {
+    // rectangle(svg, 2, 2, size[0] - 2, size[1] - 2, this.seed);
+    line(svg, 0, size[1] - 2, size[0], size[1] - 2, this.seed);
+  }
 }
 
 
