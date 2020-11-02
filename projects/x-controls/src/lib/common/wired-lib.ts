@@ -19,8 +19,6 @@ import {
 import { ZigZagFiller } from 'roughjs/bin/fillers/zigzag-filler';
 import { RenderHelper } from 'roughjs/bin/fillers/filler-interface';
 
-export let Seed = Math.floor(Math.random() * 2 ** 31);
-
 type Params = { [name: string]: string };
 
 const fillHelper: RenderHelper = {

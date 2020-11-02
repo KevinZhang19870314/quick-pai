@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Renderer2, ElementRef, HostListener, SimpleChanges, ViewChild } from '@angular/core';
 import { Utils } from '../common/utils';
 import rough from 'roughjs';
-import { rectangle, Seed } from '../common/wired-lib';
+import { rectangle } from '../common/wired-lib';
+import { XControl, Point } from '../common/control';
 
 /**
  * Example of usage:
@@ -17,7 +18,7 @@ import { rectangle, Seed } from '../common/wired-lib';
   }
 })
 
-export class XButton implements OnInit {
+export class XButton extends XControl implements OnInit {
 
   /**按钮大小 */
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
@@ -35,7 +36,9 @@ export class XButton implements OnInit {
   buttonWrapperEl: HTMLElement;
 
   constructor(private renderer2: Renderer2,
-    private el: ElementRef) { }
+    private el: ElementRef) {
+    super(el);
+  }
 
   ngOnInit(): void {
     this.buttonWrapperEl = this.el.nativeElement.getElementsByClassName('x-button-wrapper')[0];
@@ -50,26 +53,32 @@ export class XButton implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.draw();
+    this.render();
   }
 
-  private draw() {
-    if (this.svg) {
-      const elev = Math.min(Math.max(1, this.elevation), 5);
-
-      const s = {
-        width: +this.buttonWrapperEl.offsetWidth - ((elev - 1) * 2),
-        height: +this.buttonWrapperEl.offsetHeight - ((elev - 1) * 2),
-      };
-
-      while (this.svg.nativeElement.hasChildNodes()) {
-        this.svg.nativeElement.removeChild(this.svg.nativeElement.lastChild!);
-      }
-
-      this.svg.nativeElement.setAttribute('width', `${s.width}`);
-      this.svg.nativeElement.setAttribute('height', `${s.height}`);
-      rectangle(this.svg.nativeElement, 0, 0, s.width, s.height, Seed);
+  protected canvasSize(): Point {
+    if (!this.buttonWrapperEl) {
+      return this.lastSize;
     }
+
+    const elev = Math.min(Math.max(1, this.elevation), 5);
+    const size = {
+      width: +this.buttonWrapperEl.offsetWidth + ((elev - 1) * 2),
+      height: +this.buttonWrapperEl.offsetHeight + ((elev - 1) * 2),
+    };
+
+    return [size.width, size.height];
+  }
+
+  protected draw() {
+    const elev = Math.min(Math.max(1, this.elevation), 5);
+
+    const s = {
+      width: +this.buttonWrapperEl.offsetWidth - ((elev - 1) * 2),
+      height: +this.buttonWrapperEl.offsetHeight - ((elev - 1) * 2),
+    };
+
+    rectangle(this.svg.nativeElement, 0, 0, s.width, s.height, this.seed);
   }
 
   private buildSize() {
@@ -81,29 +90,6 @@ export class XButton implements OnInit {
       this.renderer2.setStyle(this.buttonWrapperEl, 'width', '68px');
     } else {
       this.renderer2.setStyle(this.buttonWrapperEl, 'width', this.xSize);
-    }
-  }
-
-  // mouseover implementation for those colors which isn't in primary/accent/warn 
-  @HostListener('mouseover') onmouseover() {
-    if (this.xDisabled) {
-      return;
-    }
-
-    if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
-      let rgb = Utils.hexToRgb(this.xColor);
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 80%)');
-    }
-  }
-
-  // mouseout implementation for those colors which isn't in primary/accent/warn
-  @HostListener('mouseout') onmouseout() {
-    if (this.xDisabled) {
-      return;
-    }
-
-    if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', this.xColor);
     }
   }
 }

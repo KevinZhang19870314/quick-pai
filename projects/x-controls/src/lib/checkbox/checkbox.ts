@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2, ElementRef, SimpleChanges, Input, Output, EventEmitter, forwardRef, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { rectangle, Seed, svgNode, line } from '../common/wired-lib';
+import { rectangle, svgNode, line } from '../common/wired-lib';
+import { XControl, Point } from '../common/control';
 
 @Component({
   selector: `x-checkbox`,
@@ -14,7 +15,7 @@ import { rectangle, Seed, svgNode, line } from '../common/wired-lib';
     }]
 })
 
-export class XCheckbox implements OnInit, ControlValueAccessor {
+export class XCheckbox extends XControl implements OnInit, ControlValueAccessor {
   private emitChange = (_: any) => { };
 
   @Input() xColor: 'primary' | 'accent' | 'warn' = 'primary';
@@ -27,7 +28,7 @@ export class XCheckbox implements OnInit, ControlValueAccessor {
   private svgCheck?: SVGElement;
   @ViewChild('svg', { static: true }) svg: ElementRef<SVGElement>;
 
-  constructor() { }
+  constructor(private el: ElementRef) { super(el); }
 
   ngOnInit(): void {
     // Avoid to pass in a 'true' or 'false' string value
@@ -39,31 +40,21 @@ export class XCheckbox implements OnInit, ControlValueAccessor {
   }
 
   ngAfterViewInit() {
-    this.draw();
+    this.render();
   }
 
-  private draw() {
-    if (this.svg) {
+  protected canvasSize(): Point {
+    return [19, 19];
+  }
 
-      const s = {
-        width: 19,
-        height: 19,
-      };
+  protected draw(svg: SVGElement, size: Point) {
+    rectangle(this.svg.nativeElement, 0, 0, size[0], size[1], this.seed);
+    this.svgCheck = svgNode('g');
+    this.svg.nativeElement.appendChild(this.svgCheck);
+    line(this.svgCheck, size[0] * 0.3, size[1] * 0.4, size[0] * 0.5, size[1] * 0.7, this.seed);
+    line(this.svgCheck, size[0] * 0.5, size[1] * 0.7, size[0] + 5, -5, this.seed);
 
-      while (this.svg.nativeElement.hasChildNodes()) {
-        this.svg.nativeElement.removeChild(this.svg.nativeElement.lastChild!);
-      }
-
-      this.svg.nativeElement.setAttribute('width', `${s.width}`);
-      this.svg.nativeElement.setAttribute('height', `${s.height}`);
-      rectangle(this.svg.nativeElement, 0, 0, s.width, s.height, Seed);
-      this.svgCheck = svgNode('g');
-      this.svg.nativeElement.appendChild(this.svgCheck);
-      line(this.svgCheck, s.width * 0.3, s.height * 0.4, s.width * 0.5, s.height * 0.7, Seed);
-      line(this.svgCheck, s.width * 0.5, s.height * 0.7, s.width + 5, -5, Seed);
-
-      this.refreshCheckVisibility();
-    }
+    this.refreshCheckVisibility();
   }
 
   private refreshCheckVisibility() {
