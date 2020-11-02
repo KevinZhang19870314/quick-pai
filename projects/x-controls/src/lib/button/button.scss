@@ -1,5 +1,5 @@
 :host {
-  display: contents;
+  display: inline-block;
 }
 
 :host(.disabled) {
@@ -18,4 +18,21 @@
   cursor: pointer;
   font-weight: 500;
   user-select: none;
+  border: none;
+  outline: none;
+
+  .rough {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: none;
+
+    &>svg {
+      display: block;
+      stroke-width: 1;
+      fill: transparent;
+    }
+  }
 }

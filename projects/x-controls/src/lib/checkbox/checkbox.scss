@@ -3,6 +3,8 @@
   cursor: pointer;
   user-select: none;
   align-items: center;
+  border: none;
+  outline: none;
 
   &>input {
     position: absolute;
@@ -42,10 +44,28 @@
 
   &>.label-content.after {
     order: 2;
+    margin-left: 24px;
   }
 
   &>.label-content.before {
     order: 1;
     margin-right: 5px;
+  }
+
+  .rough {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: none;
+    width: 19px;
+    height: 19px;
+
+    &>svg {
+      display: block;
+      stroke-width: 1;
+      fill: transparent;
+    }
   }
 }

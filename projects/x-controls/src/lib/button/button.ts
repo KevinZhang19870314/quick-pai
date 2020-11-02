@@ -22,11 +22,13 @@ export class XButton implements OnInit {
   /**按钮大小 */
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
 
-  /**按钮颜色，可以是主、副、警告色，也可以是任何其他颜色值，如'red', '#FFFFFF' and etc. */
-  @Input() xColor: 'primary' | 'accent' | 'warn' | any = 'primary';
+  /**按钮颜色，可以是主、副、警告色. */
+  @Input() xColor: 'primary' | 'accent' | 'warn' = 'primary';
 
   /**是否禁用 */
   @Input() xDisabled: any = false;
+
+  private readonly elevation = 1;
 
   @ViewChild('svg', { static: true }) svg: ElementRef<SVGElement>;
 
@@ -39,26 +41,33 @@ export class XButton implements OnInit {
     this.buttonWrapperEl = this.el.nativeElement.getElementsByClassName('x-button-wrapper')[0];
 
     this.buildSize();
-    this.buildBgColor();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!this.buttonWrapperEl) {
       this.buttonWrapperEl = this.el.nativeElement.getElementsByClassName('x-button-wrapper')[0];
     }
-
-    if (changes && changes.xDisabled !== undefined && this.buttonWrapperEl) {
-      this.buildBgColor();
-    }
   }
 
   ngAfterViewInit() {
+    this.draw();
+  }
+
+  private draw() {
     if (this.svg) {
+      const elev = Math.min(Math.max(1, this.elevation), 5);
+
       const s = {
-        width: +this.buttonWrapperEl.style.width,
-        height: +this.buttonWrapperEl.style.height
+        width: +this.buttonWrapperEl.offsetWidth - ((elev - 1) * 2),
+        height: +this.buttonWrapperEl.offsetHeight - ((elev - 1) * 2),
       };
 
+      while (this.svg.nativeElement.hasChildNodes()) {
+        this.svg.nativeElement.removeChild(this.svg.nativeElement.lastChild!);
+      }
+
+      this.svg.nativeElement.setAttribute('width', `${s.width}`);
+      this.svg.nativeElement.setAttribute('height', `${s.height}`);
       rectangle(this.svg.nativeElement, 0, 0, s.width, s.height, Seed);
     }
   }
@@ -72,19 +81,6 @@ export class XButton implements OnInit {
       this.renderer2.setStyle(this.buttonWrapperEl, 'width', '68px');
     } else {
       this.renderer2.setStyle(this.buttonWrapperEl, 'width', this.xSize);
-    }
-  }
-
-  private buildBgColor() {
-    if (this.xDisabled) {
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '#B0B0B0');
-      return;
-    }
-
-    if (this.xColor !== 'primary' && this.xColor !== 'accent' && this.xColor !== 'warn') {
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', this.xColor);
-    } else {
-      this.renderer2.setStyle(this.buttonWrapperEl, 'background-color', '');
     }
   }
 

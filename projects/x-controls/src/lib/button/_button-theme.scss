@@ -9,11 +9,53 @@
   $layout-background-color: x-color($background, background);
   $layout-foreground-color: x-color($foreground, text, 0.95);
 
-  @include x-controls-color($primary, '');
-  @include x-controls-color($accent, 'accent');
-  @include x-controls-color($warn, 'warn');
+  // @include x-controls-color($primary, '');
+  // @include x-controls-color($accent, 'accent');
+  // @include x-controls-color($warn, 'warn');
 
   .x-button-wrapper {
     color: x-color($foreground, text, 0.95);
+
+    .x-controls-color {
+      stroke: x-color($primary);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($primary), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-accent {
+      stroke: x-color($accent);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($accent), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-warn {
+      stroke: x-color($warn);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($warn), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
   }
 }

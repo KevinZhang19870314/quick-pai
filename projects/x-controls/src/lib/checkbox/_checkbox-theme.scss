@@ -12,30 +12,73 @@
   .x-checkbox-wrapper {
     color: x-color($foreground, text, 0.95);
 
-    @include x-controls-color($primary, '');
-    @include x-controls-color($accent, 'accent');
-    @include x-controls-color($warn, 'warn');
+    // @include x-controls-color($primary, '');
+    // @include x-controls-color($accent, 'accent');
+    // @include x-controls-color($warn, 'warn');
+
+    .x-controls-color {
+      stroke: x-color($primary);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($primary), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-accent {
+      stroke: x-color($accent);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($accent), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-warn {
+      stroke: x-color($warn);
+      background-color: transparent;
+
+      &:hover {
+        stroke: lighten(x-color($warn), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
 
     &>.checkmark.unchecked {
-      background-color: transparent;
-      border: 2px solid x-color($foreground, text, .1);
+      // background-color: transparent;
+      // border: 2px solid x-color($foreground, text, .1);
     }
 
     &>.checkmark.unchecked.disabled {
-      background-color: transparent;
-      border: 2px solid #B0B0B0;
+      // background-color: transparent;
+      // border: 2px solid #B0B0B0;
     }
 
     &>.checkmark.disabled {
-      background-color: #B0B0B0;
+      // background-color: #B0B0B0;
     }
 
     &>.checkmark:after {
-      border: solid white;
+      // border: solid white;
     }
   }
 
   .x-checkbox-wrapper.disabled {
     color: #B0B0B0;
+    cursor: not-allowed !important;
   }
 }

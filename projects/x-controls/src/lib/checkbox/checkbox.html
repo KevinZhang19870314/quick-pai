@@ -1,12 +1,19 @@
 <label class="x-checkbox-wrapper flex-wrap row-flex" [ngClass]="{'disabled': xDisabled}">
   <input type="checkbox" [(ngModel)]="xChecked" (change)="onChanged()" [disabled]="xDisabled">
-  <span class="checkmark" [ngClass]="{'x-controls-color': xColor === 'primary', 
+  <!-- <span class="checkmark" [ngClass]="{'x-controls-color': xColor === 'primary', 
     'x-controls-color-accent': xColor === 'accent', 
     'x-controls-color-warn': xColor === 'warn',
     'unchecked': !xChecked,
     'disabled': xDisabled
-  }"></span>
+  }"></span> -->
   <span class="label-content after" [ngClass]="{'before': xLabelPosition === 'before'}">
     <ng-content></ng-content>
   </span>
+  <div class="rough">
+    <svg #svg [ngClass]="{'x-controls-color': xColor === 'primary', 
+    'x-controls-color-accent': xColor === 'accent', 
+    'x-controls-color-warn': xColor === 'warn',
+    'disabled': xDisabled
+  }"></svg>
+  </div>
 </label>

@@ -4,12 +4,10 @@
   <x-button xColor="warn">warn</x-button>
   <x-button xSize="large">大号按钮</x-button>
   <x-button xSize="small">小号按钮</x-button>
-  <x-button xSize="large" xColor="#AA55FF">指定颜色按钮</x-button>
   <x-button xSize="300px">指定大小按钮</x-button>
   <x-button xSize="large">
     <i class="fas fa-question-circle"></i>
     自定义按钮
   </x-button>
-  <x-button [xDisabled]="disabledBtn" xColor="#AA55FF" (click)="onPrimaryBtnClicked()">禁用按钮1</x-button>
-  <x-button [xDisabled]="disabledBtn" (click)="onPrimaryBtnClicked()">禁用按钮2</x-button>
+  <x-button [xDisabled]="disabledBtn" (click)="onPrimaryBtnClicked()">禁用按钮1</x-button>
 </div>
