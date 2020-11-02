@@ -1,4 +1,7 @@
 <span class="x-button-wrapper flex-wrap row-flex"
   [ngClass]="{'x-controls-color': xColor === 'primary', 'x-controls-color-accent': xColor === 'accent', 'x-controls-color-warn': xColor === 'warn'}">
   <ng-content></ng-content>
+  <div class="rough">
+    <svg #svg></svg>
+  </div>
 </span>

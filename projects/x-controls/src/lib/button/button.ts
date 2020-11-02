@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, Renderer2, ElementRef, HostListener, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, ElementRef, HostListener, SimpleChanges, ViewChild } from '@angular/core';
 import { Utils } from '../common/utils';
+import rough from 'roughjs';
+import { rectangle, Seed } from '../common/wired-lib';
+
 /**
  * Example of usage:
  * <example-url>https://stackblitz.com/edit/x-button?embed=1&file=src/app/app.component.ts</example-url>
@@ -16,15 +19,16 @@ import { Utils } from '../common/utils';
 
 export class XButton implements OnInit {
 
-  /**
-   * The size for button
-   */
+  /**按钮大小 */
   @Input() xSize: 'normal' | 'large' | 'small' | any = 'normal';
-  /**
-   * The color for button, you can pass default three, or custom solor like 'red, #FFFFFF and etc.'
-   */
+
+  /**按钮颜色，可以是主、副、警告色，也可以是任何其他颜色值，如'red', '#FFFFFF' and etc. */
   @Input() xColor: 'primary' | 'accent' | 'warn' | any = 'primary';
+
+  /**是否禁用 */
   @Input() xDisabled: any = false;
+
+  @ViewChild('svg', { static: true }) svg: ElementRef<SVGElement>;
 
   buttonWrapperEl: HTMLElement;
 
@@ -45,6 +49,17 @@ export class XButton implements OnInit {
 
     if (changes && changes.xDisabled !== undefined && this.buttonWrapperEl) {
       this.buildBgColor();
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.svg) {
+      const s = {
+        width: +this.buttonWrapperEl.style.width,
+        height: +this.buttonWrapperEl.style.height
+      };
+
+      rectangle(this.svg.nativeElement, 0, 0, s.width, s.height, Seed);
     }
   }
 

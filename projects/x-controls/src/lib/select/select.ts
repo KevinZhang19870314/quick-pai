@@ -48,7 +48,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
   /**取消全选时触发 */
   @Output() onDeselectedAll = new EventEmitter<XSelectItem | Array<XSelectItem>>();
 
-  @ContentChild(XSelectItemDirective) xSelectItemRef: XSelectItemDirective;
+  @ContentChild(XSelectItemDirective, { static: true }) xSelectItemRef: XSelectItemDirective;
 
   private originXItems: Array<XSelectItem> = [];
   /**Search text binding */

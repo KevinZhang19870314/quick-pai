@@ -10,8 +10,8 @@ import { NotifyService, TAB_xVisible } from '../common/notify.service';
 
 export class XTab implements OnInit {
 
-  @ViewChild(TemplateRef) content: TemplateRef<any>;
-  @ContentChild(XTabHeaderDirective) tabHeaderContent: XTabHeaderDirective;
+  @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;
+  @ContentChild(XTabHeaderDirective, { static: true }) tabHeaderContent: XTabHeaderDirective;
 
   @Input() xTitle: string;
   @Input() xDisabled: boolean = false;
