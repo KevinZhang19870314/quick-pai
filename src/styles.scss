@@ -12,9 +12,19 @@
 @import './app/theme/all-theme';
 @include quick-pai-theme($theme);
 
+@font-face {
+  font-family: 'Gloria Hallelujah';
+  src: url(assets/font/font.woff2) format("opentype");
+}
+
+@font-face {
+  font-family: 'psychic';
+  src: url(assets/font/psychic.otf) format("opentype");
+}
+
 html {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-family: 'Gloria Hallelujah', 'psychic', sans-serif;
+  font-size: 16px;
 }
 
 .flex-wrap {
