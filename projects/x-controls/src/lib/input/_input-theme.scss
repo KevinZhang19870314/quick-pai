@@ -13,7 +13,6 @@
     color: x-color($foreground, text, 0.95);
 
     .x-input-field {
-      // border-bottom: 1px solid x-color($foreground, control);
       background-color: x-color($background, background);
       border: none;
       outline: none;
@@ -22,10 +21,10 @@
         color: x-color($foreground, disabled-text);
       }
 
-      &:not(.disabled):active,
-      &:not(.disabled):focus {
-        // border-bottom: 1px solid x-color($primary);
-        // box-shadow: 0 1px 0 0 x-color($primary);
+      &:not(.disabled):active~.rough path,
+      &:not(.disabled):focus~.rough path {
+        stroke-width: 1.5;
+        stroke: x-color($primary);
       }
 
       &:focus+label {
@@ -35,6 +34,10 @@
 
     .x-input-lbl {
       color: x-color($foreground, control);
+
+      &.disabled {
+        color: x-color($foreground, disabled-text);
+      }
     }
 
     .x-input-msg {
@@ -44,7 +47,11 @@
     .rough {
 
       &>svg {
-        stroke: x-color($primary);
+        stroke: x-color($foreground, control);
+      }
+
+      &>svg.disabled {
+        stroke: x-color($foreground, disabled-text) !important;
       }
     }
   }

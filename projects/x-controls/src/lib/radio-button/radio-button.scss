@@ -24,35 +24,28 @@
     }
   }
 
-  &>.checkMark {
-    position: relative;
-    height: 22px;
-    width: 22px;
-    display: block;
-    box-sizing: border-box;
-    margin-right: 5px;
-    order: 2;
-    border-radius: 50%;
-
-    &:after {
-      content: "";
-      position: absolute;
-      display: none;
-      margin-left: 3px;
-      margin-top: 3px;
-      width: 8px;
-      height: 8px;
-      border-width: 2px;
-      border-radius: 50%;
-    }
-  }
-
   &>.label-content.after {
     order: 2;
+    margin-left: 20px;
   }
 
   &>.label-content.before {
     order: 1;
     margin-right: 5px;
+  }
+
+  .rough {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    pointer-events: none;
+    width: 19px;
+    height: 19px;
+
+    &>svg {
+      display: block;
+      stroke-width: 1;
+      fill: transparent;
+    }
   }
 }

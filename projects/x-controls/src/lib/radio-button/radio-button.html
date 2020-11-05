@@ -1,13 +1,21 @@
 <label class="x-radio-button-wrapper flex-wrap row-flex" [ngClass]="{'disabled': xDisabled}">
   <input type="checkbox" [(ngModel)]="xChecked" (change)="onChanged($event)" (click)="onClicked($event)"
     [disabled]="xDisabled">
-  <span class="checkMark" [ngClass]="{'x-radio-button-check-color': xColor === 'primary', 
+  <!-- <span class="checkMark" [ngClass]="{'x-radio-button-check-color': xColor === 'primary', 
     'x-radio-button-check-color-accent': xColor === 'accent', 
     'x-radio-button-check-color-warn': xColor === 'warn',
     'unselected': !xChecked,
     'disabled': xDisabled
-  }"></span>
+  }"></span> -->
   <span class="label-content after" [ngClass]="{'before': xLabelPosition === 'before', 'disabled': xDisabled}">
     <ng-content></ng-content>
   </span>
+  <div class="rough">
+    <svg #svg [ngClass]="{'x-controls-color': xColor === 'primary', 
+    'x-controls-color-accent': xColor === 'accent', 
+    'x-controls-color-warn': xColor === 'warn',
+    'unselected': !xChecked,
+    'disabled': xDisabled
+  }"></svg>
+  </div>
 </label>

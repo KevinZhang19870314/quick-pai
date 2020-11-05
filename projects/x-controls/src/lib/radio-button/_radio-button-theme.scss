@@ -48,9 +48,66 @@
       color: #B0B0B0;
     }
 
-    @include x-radio-button-check-color($primary, '');
-    @include x-radio-button-check-color($accent, 'accent');
-    @include x-radio-button-check-color($warn, 'warn');
+    .x-controls-color {
+      stroke: x-color($primary);
+      background-color: transparent;
+
+      & g path {
+        stroke-width: 0;
+        fill: x-color($primary);
+      }
+
+      &:hover {
+        stroke: lighten(x-color($primary), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-accent {
+      stroke: x-color($accent);
+      background-color: transparent;
+
+      & g path {
+        stroke-width: 0;
+        fill: x-color($accent);
+      }
+
+      &:hover {
+        stroke: lighten(x-color($accent), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    .x-controls-color-warn {
+      stroke: x-color($warn);
+      background-color: transparent;
+
+      & g path {
+        stroke-width: 0;
+        fill: x-color($warn);
+      }
+
+      &:hover {
+        stroke: lighten(x-color($warn), 5%);
+        background-color: transparent;
+      }
+
+      &.disabled {
+        stroke: #B0B0B0 !important;
+      }
+    }
+
+    // @include x-radio-button-check-color($primary, '');
+    // @include x-radio-button-check-color($accent, 'accent');
+    // @include x-radio-button-check-color($warn, 'warn');
   }
 
   .x-checkbox-wrapper.disabled {
