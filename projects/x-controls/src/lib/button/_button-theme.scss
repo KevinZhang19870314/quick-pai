@@ -9,14 +9,10 @@
   $layout-background-color: x-color($background, background);
   $layout-foreground-color: x-color($foreground, text, 0.95);
 
-  // @include x-controls-color($primary, '');
-  // @include x-controls-color($accent, 'accent');
-  // @include x-controls-color($warn, 'warn');
-
   .x-button-wrapper {
     color: x-color($foreground, text, 0.95);
 
-    .x-controls-color {
+    .x-button-color {
       stroke: x-color($primary);
       background-color: transparent;
 
@@ -30,7 +26,7 @@
       }
     }
 
-    .x-controls-color-accent {
+    .x-button-color-accent {
       stroke: x-color($accent);
       background-color: transparent;
 
@@ -44,7 +40,7 @@
       }
     }
 
-    .x-controls-color-warn {
+    .x-button-color-warn {
       stroke: x-color($warn);
       background-color: transparent;
 
