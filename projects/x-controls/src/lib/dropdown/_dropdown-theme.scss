@@ -1,4 +1,4 @@
-@mixin x-select-theme($theme) {
+@mixin x-dropdown-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -9,16 +9,12 @@
   $layout-background-color: x-color($background, background);
   $layout-foreground-color: x-color($foreground, text, 0.95);
 
-  @include x-controls-color($primary, '');
-  @include x-controls-color($accent, 'accent');
-  @include x-controls-color($warn, 'warn');
-
-  .x-select-wrapper {
+  .x-dropdown-wrapper {
     color: x-color($foreground, text);
 
     .selected-item-wrapper {
-      background: x-color($background, background);
-      border: 1px solid x-color($primary);
+      background: x-color($background, control);
+      border: 1px solid x-color($foreground, divider);
 
       & .placeholder {
         color: x-color($foreground, placeholder);
@@ -26,30 +22,42 @@
 
       &:hover {
         background-color: x-color($background, hover);
+        border: 1px solid x-color($primary);
+      }
+
+      &:focus {
+        border: 1px solid x-color($primary);
       }
 
       .mul-item-container {
 
         .mul-item {
-          background-color: x-color($primary, lighter);
+          background-color: x-color($primary, 200);
         }
       }
     }
   }
 
-  .x-select-viewport {
+  .x-dropdown-viewport {
     border: 1px solid x-color($primary);
-    background: x-color($background, background);
+    background: x-color($background, control);
     box-shadow: 0 1px 5px x-color($background, shadow);
     border-top: none;
 
-    .select-item {
-      &.active {
-        background-color: x-color($background, highlight);
-      }
+    .search-container {
 
+      .fas.fa-search {
+        color: x-color($foreground, disabled-text);
+      }
+    }
+
+    .select-item {
       &:hover {
         background-color: x-color($background, hover);
+      }
+
+      &.active {
+        background-color: x-color($primary, lighter);
       }
     }
 

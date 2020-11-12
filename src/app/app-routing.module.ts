@@ -6,7 +6,7 @@ import { RadioButtonComponent } from './sample/radio-button/radio-button.compone
 import { InputComponent } from './sample/input/input.component';
 import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
-import { SelectComponent } from './sample/select/select.component';
+import { DropdownComponent } from './sample/dropdown/dropdown.component';
 
 const routes: Routes = [
   { path: 'button', component: ButtonComponent },
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'input', component: InputComponent },
   { path: 'tabs', component: TabsComponent },
   { path: 'tooltip', component: TooltipComponent },
-  { path: 'select', component: SelectComponent }
+  { path: 'dropdown', component: DropdownComponent }
 ];
 
 @NgModule({

@@ -1,18 +1,16 @@
-import { Component, OnInit, Input, ElementRef, TemplateRef, ViewContainerRef, Output, EventEmitter, ContentChild, forwardRef, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { OverlayRef, Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { OverlayService } from '../common';
-import { XSelectItemDirective } from './select-item.directive';
+import { Component, OnInit, Input, ElementRef, TemplateRef, ViewContainerRef, Output, EventEmitter, ContentChild, forwardRef, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
+import { XDropdownItemDirective } from './dropdown-item.directive';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { trigger, state, style, transition, animate, query, stagger, group } from '@angular/animations';
+import { OverlayService } from '../common/overlay.service';
 
 /**
  * 下拉选择组件 - 支持单选和多选功能
+ *
  */
 @Component({
-  selector: `x-select`,
-  templateUrl: 'select.html',
-  styleUrls: ['select.scss'],
+  selector: `x-dropdown`,
+  templateUrl: 'dropdown.html',
+  styleUrls: ['dropdown.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.disabled]': 'xDisabled === "true" || xDisabled === true'
@@ -20,55 +18,55 @@ import { trigger, state, style, transition, animate, query, stagger, group } fro
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => XSelect),
+      useExisting: forwardRef(() => XDropdown),
       multi: true,
     }]
 })
-export class XSelect implements OnInit, ControlValueAccessor {
+export class XDropdown implements OnInit, ControlValueAccessor {
   private emitChange = (_: any) => { };
 
-  /**Set the select control is disabled or not */
+  /**是否禁用状态 */
   @Input() xDisabled: any = false;
 
-  /**Settings for select, like property name for id, label and etc. */
-  @Input() xSettings: XSelectSettings;
+  /**下拉组件的基础设置，如是否单选等 */
+  @Input() xSettings: XDropdownSettings;
 
-  /**Dropdown items for select control */
-  @Input() xItems: Array<XSelectItem> = [];
+  /**全部下拉选项 */
+  @Input() xItems: Array<XDropdownItem> = [];
 
-  /**Selected item or items for select control */
-  @Input() xSelectedItem: XSelectItem | Array<XSelectItem>;
+  /**已选项 - 单选为一个对象， 多选则为一组数组 */
+  @Input() xSelectedItem: XDropdownItem | Array<XDropdownItem>;
 
-  /**Trigger after item selected */
-  @Output() onSelected = new EventEmitter<XSelectItem | Array<XSelectItem>>();
+  /**选择时触发 */
+  @Output() onSelected = new EventEmitter<XDropdownItem | Array<XDropdownItem>>();
   /**取消选择时触发 */
-  @Output() onDeselected = new EventEmitter<XSelectItem | Array<XSelectItem>>();
+  @Output() onDeselected = new EventEmitter<XDropdownItem | Array<XDropdownItem>>();
   /**全选时触发 */
-  @Output() onSelectedAll = new EventEmitter<XSelectItem | Array<XSelectItem>>();
+  @Output() onSelectedAll = new EventEmitter<XDropdownItem | Array<XDropdownItem>>();
   /**取消全选时触发 */
-  @Output() onDeselectedAll = new EventEmitter<XSelectItem | Array<XSelectItem>>();
+  @Output() onDeselectedAll = new EventEmitter<XDropdownItem | Array<XDropdownItem>>();
 
-  @ContentChild(XSelectItemDirective, { static: true }) xSelectItemRef: XSelectItemDirective;
+  @ContentChild(XDropdownItemDirective) selectItemRef: XDropdownItemDirective;
 
-  private originXItems: Array<XSelectItem> = [];
-  /**Search text binding */
-  private searchToken: string;
+  private originXItems: Array<XDropdownItem> = [];
+  /**查询Token */
+  searchToken: string;
 
   //#region Getter
-  /**For single select */
+  /**单选下拉框 */
   get selectedLabel() {
     this.checkItemExists();
 
     if (this.xSettings.single) {
-      return this.xSelectedItem ? (this.xSelectedItem as XSelectItem).label : this.xSettings.placeHolder;
+      return this.xSelectedItem ? (this.xSelectedItem as XDropdownItem).label : this.xSettings.placeHolder;
     }
 
     return this.xSettings.placeHolder;
   }
 
-  /**For multiple select */
-  selectedItems: Array<XSelectItem> = [];
-  selectedBadgeItems: Array<XSelectItem> = [];
+  /**多选下拉框 */
+  selectedItems: Array<XDropdownItem> = [];
+  selectedBadgeItems: Array<XDropdownItem> = [];
   noneBadgeCount: number = 0;
 
   private buildMultipleSelect() {
@@ -78,7 +76,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
     //#region selectedItems
     this.checkItemExists();
-    let selectedItems = this.xSelectedItem as Array<XSelectItem>;
+    let selectedItems = this.xSelectedItem as Array<XDropdownItem>;
     if (selectedItems && selectedItems.length > 0) {
       this.selectedItems = [...selectedItems];
     } else {
@@ -106,7 +104,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
       return this.selectedLabel !== this.xSettings.placeHolder;
     }
 
-    // Multiple select
+    // Multiple dropdown
     if (this.selectedItems && this.selectedItems.length > 0) {
       return this.selectedItems[0].label !== this.xSettings.placeHolder;
     }
@@ -114,20 +112,31 @@ export class XSelect implements OnInit, ControlValueAccessor {
     return false;
   }
 
+  _isCheckedAll: boolean = false;
   get isCheckedAll() {
     return this.xItems.length === this.xSelectedItem.length;
+  }
+
+  set isCheckedAll(val: boolean) {
+    this._isCheckedAll = val;
   }
   //#endregion
 
   constructor(private viewContainerRef: ViewContainerRef,
     private overlayService: OverlayService,
-    private cdf: ChangeDetectorRef) { }
+    private cdf: ChangeDetectorRef,
+    private renderer2: Renderer2) { }
 
   ngOnInit(): void {
     this.init();
   }
 
-  ngOnChanges(changes: SimpleChanges) { }
+  ngOnChanges(changes: SimpleChanges) {
+    let items = changes['items'];
+    if (items && items.currentValue && items.currentValue.length >= 0) {
+      this.originXItems = [...items.currentValue];
+    }
+  }
 
   onSelectAll(checked: boolean) {
     this.xItems.forEach(item => {
@@ -140,7 +149,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
     this.emitChange(this.xSelectedItem);
   }
 
-  onSelect(item: XSelectItem) {
+  onSelect(item: XDropdownItem) {
     if (this.xSettings.single) {
       this.xSelectedItem = item;
       this.onSelected.emit(item);
@@ -151,7 +160,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
       return;
     }
 
-    //#region Multiple select
+    //#region Multiple dropdown
     if (!this.xSelectedItem || !this.xSelectedItem.length) {
       this.xSelectedItem = [];
     }
@@ -159,7 +168,7 @@ export class XSelect implements OnInit, ControlValueAccessor {
     if (item.checked) {
       this.xSelectedItem.push(item);
     } else {
-      this.xSelectedItem = this.xSelectedItem.filter((f: XSelectItem) => f.id !== item.id);
+      this.xSelectedItem = this.xSelectedItem.filter((f: XDropdownItem) => f.id !== item.id);
     }
 
     this.buildMultipleSelect();
@@ -177,14 +186,17 @@ export class XSelect implements OnInit, ControlValueAccessor {
     this.xItems = this.originXItems.filter(f => f.label.indexOf(val) > -1);
   }
 
-  isActive(item: XSelectItem) {
+  isActive(item: XDropdownItem) {
     if (!this.xSelectedItem) {
       return false;
     }
 
-    return item.id === (this.xSelectedItem as XSelectItem).id;
+    if (this.xSettings.single) {
+      return item.id === (this.xSelectedItem as XDropdownItem).id;
+    }
 
-    // TODO: multiple select
+    // Multiple dropdown
+    return this.xSelectedItem.find(f => f.id === item.id);
   }
 
   onOpenDropdown($event: MouseEvent, dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
@@ -194,12 +206,40 @@ export class XSelect implements OnInit, ControlValueAccessor {
       this.overlayService.close(null);
       return;
     }
-    
-    this.overlayService.openDropdown(origin, dropdownTpl, this.viewContainerRef, null).subscribe(res => {
+
+    this.overlayService.openDropdown(origin, dropdownTpl, this.viewContainerRef, null).subscribe(() => {
       // close
     });
 
     this.buildXItemsCheckedStatus();
+
+    // Tricky... Can't get inner element in x-input control, so we need set
+    // style async after open dropdown
+    setTimeout(() => {
+      if (!this.overlayService.overlayRef || !this.overlayService.overlayRef.overlayElement) {
+        return;
+      }
+
+      let xInputWrapper = this.overlayService.overlayRef.overlayElement.getElementsByClassName('x-input-wrapper');
+      let inputContainer = this.overlayService.overlayRef.overlayElement.getElementsByClassName('input-container');
+      let xInput = this.overlayService.overlayRef.overlayElement.getElementsByClassName('x-input');
+      if (xInputWrapper && xInputWrapper.length > 0) {
+        this.renderer2.setStyle(xInputWrapper[0], 'width', '100%');
+      }
+
+      if (inputContainer && inputContainer.length > 0) {
+        this.renderer2.setStyle(inputContainer[0], 'width', '100%');
+      }
+
+      if (xInput && xInput.length > 0) {
+        this.renderer2.setStyle(xInput[0], 'width', this.xSettings.width + 'px');
+        this.renderer2.setStyle(xInput[0], 'padding-left', '30px');
+        this.renderer2.setStyle(xInput[0], 'border-top', 'none');
+        this.renderer2.setStyle(xInput[0], 'border-left', 'none');
+        this.renderer2.setStyle(xInput[0], 'border-right', 'none');
+        this.renderer2.setStyle(xInput[0], 'box-shadow', 'none');
+      }
+    }, 0);
   }
 
   onRemoveItems($event: MouseEvent) {
@@ -215,8 +255,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
     $event.stopPropagation();
   }
 
-  onRemoveItem($event: MouseEvent, item: XSelectItem) {
-    this.xSelectedItem = this.xSelectedItem.filter((f: XSelectItem) => f.id !== item.id);
+  onRemoveItem($event: MouseEvent, item: XDropdownItem) {
+    this.xSelectedItem = this.xSelectedItem.filter((f: XDropdownItem) => f.id !== item.id);
     this.clearSearch();
 
     item.checked = false;
@@ -229,7 +269,8 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
   //#region Implementation for ControlValueAccessor
   writeValue(obj: any): void {
-    if (obj === null) {
+    // 如果是多选下拉框，传入的selectedItem是null，为了防止报错直接return，必须传入空数组[]
+    if (obj === null && !this.xSettings.single) {
       return;
     }
 
@@ -256,11 +297,13 @@ export class XSelect implements OnInit, ControlValueAccessor {
   //#region Private methods
   private init() {
     this.originXItems = [...this.xItems];
-    let initSettings: XSelectSettings = {
+    let initSettings: XDropdownSettings = {
       single: true,
       placeHolder: '请选择',
       width: 220,
-      badge: 99999
+      badge: 99999,
+      isShowSearchBox: true,
+      noData: '没有数据！'
     };
 
     this.xSettings = Object.assign(initSettings, this.xSettings);
@@ -268,14 +311,14 @@ export class XSelect implements OnInit, ControlValueAccessor {
 
   private checkItemExists() {
     if (this.xSettings.single) {
-      if (this.xSelectedItem && !this.originXItems.find(f => f.id === (this.xSelectedItem as XSelectItem).id)) {
+      if (this.xSelectedItem && !this.originXItems.find(f => f.id === (this.xSelectedItem as XDropdownItem).id)) {
         this.xSelectedItem = null;
       }
     } else {
-      // Multiple select
+      // Multiple dropdown
       if (this.xSelectedItem && this.xSelectedItem.length > 0) {
         let selectedItems = [];
-        this.xSelectedItem.forEach((item: XSelectItem) => {
+        this.xSelectedItem.forEach((item: XDropdownItem) => {
           if (this.originXItems.find(f => f.id === item.id)) {
             selectedItems.push(item);
           }
@@ -310,23 +353,23 @@ export class XSelect implements OnInit, ControlValueAccessor {
   //#endregion
 }
 
-export interface XSelectSettings {
-  /**Left side label name */
+export interface XDropdownSettings {
+  /**左侧标签名称 */
   lblName?: string;
 
-  /**Set if it is single select, default is true - single select */
+  /**是否单选下拉框，默认为true - 单选下拉框 */
   single?: boolean;
 
-  /**Check if it is required. if not, show remove icon, otherwise hide the remove icon */
+  /**是否必填，如果为false，右侧展示删除icon */
   isRequired?: boolean;
 
-  /**Placeholder for select */
+  /**占位符 */
   placeHolder?: string;
 
-  /**Set the width of x-select, default is 220, unit px */
+  /**下拉框的宽度, 默认为220px */
   width?: number;
 
-  /**Display badge count, default is 99999 */
+  /**显示项目盒子, 默认为99999 */
   badge?: number;
 
   /**是否展示全选按钮 */
@@ -334,12 +377,16 @@ export interface XSelectSettings {
 
   /**是否默认全选 */
   isCheckedAll?: boolean;
+
+  /**没有数据时展示的文案，默认为‘没有数据！’ */
+  noData?: string;
+
+  /**是否显示搜索框，默认展示 */
+  isShowSearchBox?: boolean;
 }
 
-export interface XSelectItem {
+export interface XDropdownItem {
   id: string | number;
   label: string;
   [key: string]: any;
 }
-
-

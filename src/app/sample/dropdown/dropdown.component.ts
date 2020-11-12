@@ -1,26 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { XSelectSettings, XSelectItem } from 'projects/x-controls/src';
-import { Utils } from 'projects/x-controls/src/lib/common/utils';
+import { Component, OnInit } from '@angular/core';
+import { XDropdownSettings, XDropdownItem } from 'projects/x-controls/src';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { XSelectItemDirective } from 'projects/x-controls/src/lib/select/select-item.directive';
 
 @Component({
-  selector: 'app-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  selector: 'app-dropdown',
+  templateUrl: './dropdown.component.html',
+  styleUrls: ['./dropdown.component.scss']
 })
-export class SelectComponent implements OnInit {
+export class DropdownComponent implements OnInit {
 
-  xItems: Array<XSelectItem> = [];
-  xSettings: XSelectSettings = { lblName: '门店单选', single: true, width: 320 };
-  xSelectedItem: XSelectItem;
+  xItems: Array<XDropdownItem> = [];
+  xSettings: XDropdownSettings = { lblName: '门店单选', single: true, width: 320 };
+  xSelectedItem: XDropdownItem;
 
-  xItems_m: Array<XSelectItem> = [];
-  xSettings_m: XSelectSettings = { lblName: '城市多选', single: false, width: 320, badge: 3, isShowCheckedAll: true };
-  xSelectedItem_m: Array<XSelectItem>;
+  xItems_m: Array<XDropdownItem> = [];
+  xSettings_m: XDropdownSettings = { lblName: '城市多选', single: false, width: 320, badge: 3, isShowCheckedAll: true };
+  xSelectedItem_m: Array<XDropdownItem> = [];
 
   formGroup: FormGroup;
-  xItems_m_form: Array<XSelectItem> = [];
+  xItems_m_form: Array<XDropdownItem> = [];
 
   get f() {
     return this.formGroup.controls;
@@ -30,7 +28,7 @@ export class SelectComponent implements OnInit {
 
   ngOnInit() {
     //#region NgModel
-    let results: Array<XSelectItem> = [];
+    let results: Array<XDropdownItem> = [];
     for (let i = 0; i < 10000; i++) {
       results.push({ id: '#' + i, label: '门店#' + i, hah: 'hah#' + i });
     }
@@ -39,7 +37,7 @@ export class SelectComponent implements OnInit {
     this.xSelectedItem = this.xItems[100];
 
     // Multiple select
-    let results_m: Array<XSelectItem> = [];
+    let results_m: Array<XDropdownItem> = [];
     for (let i = 0; i < 10000; i++) {
       results_m.push({ id: '#' + i, label: '城市#' + i, hah: 'hah#' + i });
     }

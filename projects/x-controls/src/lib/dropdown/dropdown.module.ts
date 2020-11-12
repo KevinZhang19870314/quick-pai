@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { XSelect } from './select';
+import { XDropdown } from './dropdown';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { XInputModule } from '../input';
+import { XInputModule } from '../input/index';
 import { FormsModule } from '@angular/forms';
-import { XSelectItemDirective } from './select-item.directive';
-import { XCheckboxModule } from '../checkbox';
+import { XDropdownItemDirective } from './dropdown-item.directive';
+import { XCheckboxModule } from '../checkbox/index';
 
 /**
  * @ignore
@@ -18,7 +18,7 @@ import { XCheckboxModule } from '../checkbox';
         XInputModule,
         XCheckboxModule
     ],
-    declarations: [XSelect, XSelectItemDirective],
-    exports: [XSelect, XSelectItemDirective]
+    declarations: [XDropdown, XDropdownItemDirective],
+    exports: [XDropdown, XDropdownItemDirective]
 })
-export class XSelectModule { }
+export class XDropdownModule { }

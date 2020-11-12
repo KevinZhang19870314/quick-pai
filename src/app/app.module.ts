@@ -6,12 +6,20 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './sample/button/button.component';
 import { CheckboxComponent } from './sample/checkbox/checkbox.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { XButtonModule, XCheckboxModule, XRadioButtonModule, XInputModule, XTabsModule, XTooltipModule, XSelectModule } from 'projects/x-controls/src';
+import {
+  XButtonModule,
+  XCheckboxModule,
+  XRadioButtonModule,
+  XInputModule,
+  XTabsModule,
+  XTooltipModule,
+  XDropdownModule
+} from 'projects/x-controls/src';
 import { RadioButtonComponent } from './sample/radio-button/radio-button.component';
 import { InputComponent } from './sample/input/input.component';
 import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
-import { SelectComponent } from './sample/select/select.component';
+import { DropdownComponent } from './sample/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +30,7 @@ import { SelectComponent } from './sample/select/select.component';
     InputComponent,
     TabsComponent,
     TooltipComponent,
-    SelectComponent
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +43,7 @@ import { SelectComponent } from './sample/select/select.component';
     XInputModule,
     XTabsModule,
     XTooltipModule,
-    XSelectModule
+    XDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

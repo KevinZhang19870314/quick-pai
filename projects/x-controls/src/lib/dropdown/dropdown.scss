@@ -1,22 +1,25 @@
-.x-select-wrapper {
+.x-dropdown-wrapper {
   position: relative;
   align-items: baseline;
   display: inline-block;
 
   .select-lbl {
     margin-right: 10px;
-    font-weight: 500;
-    font-size: 16px;
+    font-size: 13px;
+    font-weight: 700;
   }
 
   .selected-item-wrapper {
+    box-sizing: content-box;
     display: inline-block;
-    min-width: 220px;
-    padding: 6px;
+    min-width: 80px;
+    padding: 7.5px 6px;
     cursor: pointer;
     border-radius: 3px;
     border-width: 1px;
     user-select: none;
+    outline: none;
+    font-size: 13px;
 
     &>.fas.fa-caret-down,
     &>.fas.fa-caret-up {
@@ -55,14 +58,36 @@
   }
 }
 
-.x-select-viewport {
-  min-width: 220px;
+.x-dropdown-viewport {
+  min-width: 80px;
   padding: 0 6px;
   height: 300px;
   border-radius: 3px;
 
+  .search-container {
+    display: flex;
+    position: relative;
+
+    .fas.fa-search {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      line-height: 50px;
+      font-size: 14px;
+    }
+  }
+
   .search-input {
-    margin: 10px 5px 5px 5px;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 8px;
+
+    // Not work, need set style async after open dropdown
+    .x-input-wrapper,
+    .input-container,
+    input {
+      width: 100% !important;
+    }
   }
 
   .select-all {
@@ -71,17 +96,29 @@
 
   &>cdk-virtual-scroll-viewport {
     height: 100%;
+    margin-top: 8px;
 
     .select-item {
       height: 28px;
       line-height: 28px;
       padding: 3px 6px;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       align-items: center;
+      margin-bottom: 1px;
+      box-sizing: content-box;
+      white-space: nowrap;
 
       &>x-checkbox {
         margin-right: 3px;
+      }
+
+      .x-checkbox-button-wrapper {
+        margin: 0 !important;
+      }
+
+      .x-checkbox-button-wrapper span.input-helper {
+        top: 6px;
       }
     }
   }

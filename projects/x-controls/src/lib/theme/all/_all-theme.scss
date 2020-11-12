@@ -7,7 +7,7 @@
 @import '../../input/input-theme';
 @import '../../tabs/tabs-theme';
 @import '../../tooltip/tooltip-theme';
-@import '../../select/select-theme';
+@import '../../dropdown/dropdown-theme';
 
 @mixin x-controls-theme($theme) {
   @include x-core-theme($theme);
@@ -18,5 +18,5 @@
   @include x-input-theme($theme);
   @include x-tabs-theme($theme);
   @include x-tooltip-theme($theme);
-  @include x-select-theme($theme);
+  @include x-dropdown-theme($theme);
 }
