@@ -8,8 +8,11 @@ import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
 import { DropdownComponent } from './sample/dropdown/dropdown.component';
 import { SideNavComponent } from './sample/sidenav/sidenav.component';
+import { HomeComponent } from './sample/home/home.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'button', component: ButtonComponent },
   { path: 'checkbox', component: CheckboxComponent },
   { path: 'radio-button', component: RadioButtonComponent },

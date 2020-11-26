@@ -22,10 +22,12 @@ import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
 import { DropdownComponent } from './sample/dropdown/dropdown.component';
 import { SideNavComponent } from './sample/sidenav/sidenav.component';
+import { HomeComponent } from './sample/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     ButtonComponent,
     CheckboxComponent,
     RadioButtonComponent,

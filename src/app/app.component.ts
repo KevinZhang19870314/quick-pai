@@ -13,8 +13,8 @@ export class AppComponent {
     id: 'K67d',
     displayName: '主页',
     iconName: 'fa fa-home',
-    route: '/',
-    highlightRoutes: ['/'],
+    route: 'home',
+    highlightRoutes: ['home'],
     children: []
   }, {
     id: 'HMb0',
