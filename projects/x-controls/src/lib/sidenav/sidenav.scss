@@ -1,0 +1,30 @@
+$indent-left: 15px;
+
+.x-sidenav-wrapper {
+  display: inline-block;
+  width: 100%;
+
+  .sidenav-item-wrapper {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 0 8px $indent-left;
+
+    .sidenav-item {
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+
+      &>span {
+        margin: 0 $indent-left;
+      }
+
+      .right-arrow {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

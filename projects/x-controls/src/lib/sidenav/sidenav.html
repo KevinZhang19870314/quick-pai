@@ -1,0 +1,20 @@
+<div class="x-sidenav-wrapper">
+  <ng-container *ngTemplateOutlet="sidenavItem; context: { items: items }">
+  </ng-container>
+</div>
+
+<ng-template #sidenavItem let-items="items">
+  <div class="sidenav-item-wrapper" *ngFor="let item of items">
+    <div class="sidenav-item flex-wrap row-flex" (click)="onItemClicked(item)">
+      <i class="sidenav-icon" [class]="item.iconName" *ngIf="item.iconName"></i>
+      <span>{{ item.displayName }}</span>
+      <i *ngIf="item.children && item.children.length > 0" class="fa right-arrow" [ngClass]="{'fa-angle-left': !item.expanded, 
+        'fa-angle-down': item.expanded}"></i>
+    </div>
+
+    <ng-container *ngIf="item.expanded">
+      <ng-container *ngTemplateOutlet="sidenavItem; context: { items: item.children }">
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>

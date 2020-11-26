@@ -13,13 +13,15 @@ import {
   XInputModule,
   XTabsModule,
   XTooltipModule,
-  XDropdownModule
+  XDropdownModule,
+  XSideNavModule
 } from 'projects/x-controls/src';
 import { RadioButtonComponent } from './sample/radio-button/radio-button.component';
 import { InputComponent } from './sample/input/input.component';
 import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
 import { DropdownComponent } from './sample/dropdown/dropdown.component';
+import { SideNavComponent } from './sample/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DropdownComponent } from './sample/dropdown/dropdown.component';
     InputComponent,
     TabsComponent,
     TooltipComponent,
-    DropdownComponent
+    DropdownComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { DropdownComponent } from './sample/dropdown/dropdown.component';
     XInputModule,
     XTabsModule,
     XTooltipModule,
-    XDropdownModule
+    XDropdownModule,
+    XSideNavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

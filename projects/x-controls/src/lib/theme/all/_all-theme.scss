@@ -8,6 +8,7 @@
 @import '../../tabs/tabs-theme';
 @import '../../tooltip/tooltip-theme';
 @import '../../dropdown/dropdown-theme';
+@import '../../sidenav/sidenav-theme';
 
 @mixin x-controls-theme($theme) {
   @include x-core-theme($theme);
@@ -19,4 +20,5 @@
   @include x-tabs-theme($theme);
   @include x-tooltip-theme($theme);
   @include x-dropdown-theme($theme);
+  @include x-sidenav-theme($theme);
 }

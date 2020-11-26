@@ -1,7 +1,16 @@
 .app-wrapper {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+
+  .side-nav {
+    width: 220px;
+    background-color: white;
+  }
+
+  .app-content {
+    width: calc(100% - 220px - 15px);
+    margin-left: 15px;
+  }
 }

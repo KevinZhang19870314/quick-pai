@@ -8,3 +8,4 @@ export * from './lib/input';
 export * from './lib/tabs';
 export * from './lib/tooltip';
 export * from './lib/dropdown';
+export * from './lib/sidenav';

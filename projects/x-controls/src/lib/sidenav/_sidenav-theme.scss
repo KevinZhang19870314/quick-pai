@@ -1,0 +1,25 @@
+@mixin x-sidenav-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $is-dark: map-get($theme, is-dark);
+
+  $layout-background-color: x-color($background, background);
+  $layout-foreground-color: x-color($foreground, text, 0.95);
+
+  .x-sidenav-wrapper {
+    color: x-color($foreground, text, 0.95);
+
+    .sidenav-item-wrapper {
+
+      & .sidenav-item {
+        &:hover {
+          color: x-color($primary);
+          background-color: x-color($background, highlight);
+        }
+      }
+    }
+  }
+}

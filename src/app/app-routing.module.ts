@@ -7,6 +7,7 @@ import { InputComponent } from './sample/input/input.component';
 import { TabsComponent } from './sample/tabs/tabs.component';
 import { TooltipComponent } from './sample/tooltip/tooltip.component';
 import { DropdownComponent } from './sample/dropdown/dropdown.component';
+import { SideNavComponent } from './sample/sidenav/sidenav.component';
 
 const routes: Routes = [
   { path: 'button', component: ButtonComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'input', component: InputComponent },
   { path: 'tabs', component: TabsComponent },
   { path: 'tooltip', component: TooltipComponent },
-  { path: 'dropdown', component: DropdownComponent }
+  { path: 'dropdown', component: DropdownComponent },
+  { path: 'sidenav', component: SideNavComponent }
 ];
 
 @NgModule({
