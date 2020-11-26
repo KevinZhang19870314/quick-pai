@@ -1,7 +1,10 @@
-import { ViewChild, ElementRef } from "@angular/core";
+import { ViewChild, ElementRef, Component } from "@angular/core";
 
 export type Point = [number, number];
 
+@Component({
+    template: ''
+})
 export abstract class XControl {
     @ViewChild('svg', { static: true }) svg: ElementRef<SVGElement>;
 
